@@ -17,7 +17,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const MASTER_RULES = '.kiro/specs/angular-widget-library/rules.md';
+const MASTER_RULES = '.docs/rules.md';
 const DERIVED_FILES = [
     '.cursorrules',
     '.github/copilot-instructions.md',
