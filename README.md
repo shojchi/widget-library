@@ -1,5 +1,11 @@
 # widget-library
 
+> **🤖 For AI Assistants**: Read `.ai/AGENT_INSTRUCTIONS.md` FIRST.
+> 
+> **This is a LEARNING PROJECT** - Load context on-demand, not upfront.
+> 
+> **Agent Configuration**: All agent files are in `.ai/agents/` - no root-level files needed.
+
 ## Install prerequisites
 
 You need to have [node.js v24.12.0](https://nodejs.org/en/download/archive/v24.12.0) or higher and npm installed on your system.
