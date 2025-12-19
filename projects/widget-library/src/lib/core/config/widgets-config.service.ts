@@ -54,10 +54,10 @@ function deepMerge<T extends object>(target: T, source: Partial<T> | { [K in key
 
   for (const key in source) {
     if (!(key in source)) continue;
-    
+
     const sourceValue = source[key];
     const targetValue = result[key];
-    
+
     if (sourceValue && typeof sourceValue === 'object' && !Array.isArray(sourceValue)) {
       // Nested object merge - ensure target value exists or use empty object
       if (targetValue && typeof targetValue === 'object' && !Array.isArray(targetValue)) {

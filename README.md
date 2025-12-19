@@ -2,8 +2,16 @@
 
 ## Install prerequisites
 
+You need to have [node.js v24.12.0](https://nodejs.org/en/download/archive/v24.12.0) or higher and npm installed on your system.
+
+> [!TIP]
+> Project has .nvmrc file, so you can use `nvm use` to switch to the correct version.
+
 ## Setup steps
 
+1. Clone the [repository](https://github.com/shojchi/widget-library)
+2. Install dependencies `npm install`
+3. Run the development server `ng serve`
 
 ## Development server
 
