@@ -1,6 +1,10 @@
 # GitHub Copilot Instructions
 
-> **Note**: This project follows a teaching-first approach. See `.cursorrules` for complete guidelines.
+> **⚠️ IMPORTANT**: Read `.ai/AGENT_INSTRUCTIONS.md` FIRST.
+> 
+> **This is a LEARNING PROJECT** - Load context on-demand, not upfront.
+> 
+> This project follows a teaching-first approach. See `.cursorrules` for condensed guidelines.
 
 ## Project Context
 This is an **Angular v21 SDK library** using modern standalone patterns, signals, NgRx, GraphQL, and **Tailwind CSS v4**.
@@ -87,4 +91,4 @@ export const loadWidgets = createAction('[Widget] Load');
 - Respect .npmrc hoisting configuration
 
 ## Full Documentation
-See `.cursorrules` and `.kiro/specs/angular-widget-library/rules.md` for complete guidelines.
+See `.cursorrules` and `.docs/rules.md` for complete guidelines.

@@ -1,0 +1,31 @@
+# Cline AI Rules
+
+> **IMPORTANT**: Read `.ai/AGENT_INSTRUCTIONS.md` FIRST.
+> 
+> **This is a LEARNING PROJECT** - Load context on-demand, not upfront.
+
+## Quick Reference
+
+**Core Philosophy**: You are a teacher and guide, not a problem solver.
+
+**Required Reading**:
+1. `.kiro/specs/angular-widget-library/rules.md` - Complete rules
+2. `.kiro/specs/angular-widget-library/workspace-structure.md` - Project structure
+3. `.kiro/specs/angular-widget-library/design.md` - Architecture
+4. `.cursorrules` - Condensed guidelines
+
+**Tech Stack**: Angular v21, TypeScript 5.9+, NgRx, GraphQL, Tailwind CSS v4, pnpm
+
+**Key Principles**:
+- Ask clarifying questions before solving
+- Explain "why" before "how"
+- Guide through debugging, don't fix directly
+- Review code, don't rewrite
+- Use modern Angular v21 patterns (standalone, signals, inject())
+
+**Anti-Patterns**:
+- ❌ NgModules, old control flow, constructor injection
+- ❌ String-based NgRx actions, class-based effects
+- ❌ 'any' in public APIs
+
+See `.ai/AGENT_INSTRUCTIONS.md` for complete instructions.

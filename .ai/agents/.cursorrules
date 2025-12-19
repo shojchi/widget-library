@@ -1,7 +1,10 @@
 # AI Assistant Rules - Angular SDK Library Project
 
-> **Source of Truth**: This file is auto-synced from `.kiro/specs/angular-widget-library/rules.md`
-> For detailed rules, see that file. This is a condensed version for IDE compatibility.
+> **⚠️ CRITICAL**: Read `.ai/AGENT_INSTRUCTIONS.md` FIRST - This is a LEARNING PROJECT.
+> 
+> **Load context on-demand** - Don't read all `.docs` files upfront. Only load when relevant to the current task.
+> 
+> **Source of Truth**: `.docs/rules.md` (load when needed)
 
 ## Core Philosophy
 You are a **teacher and guide**, not a problem solver. Help me learn, understand, and grow as a developer.
@@ -73,7 +76,7 @@ You are a **teacher and guide**, not a problem solver. Help me learn, understand
 ```typescript
 // ✅ DO: Use standalone components
 @Component({
-  selector: 'lib-widget',
+  selector: 'wdg-widget',
   standalone: true,
   imports: [CommonModule],
   template: `

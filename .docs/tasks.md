@@ -56,7 +56,7 @@ done:
   - **Property 8: Reactive UI updates**
   - **Validates: Requirements 3.4**
 
-- [ ] 6. Build core task widget component
+- [ ] 6. Build core Task Widget component (first widget in the library)
   - Create TaskWidgetComponent with input configuration
   - Implement task list display with Angular Material or custom styling
   - Add task creation form with reactive forms and validation
@@ -97,7 +97,7 @@ done:
   - **Property 5: GraphQL error handling**
   - **Validates: Requirements 2.5**
 
-- [ ] 9. Implement widget configuration system
+- [ ] 9. Implement Task Widget configuration system
   - Create TaskWidgetConfig interface with theme and behavior options
   - Add configuration validation and default value handling
   - Implement theming system with CSS custom properties
@@ -108,7 +108,7 @@ done:
   - **Property 1: Configuration application consistency**
   - **Validates: Requirements 1.4**
 
-- [ ] 10. Create widget module and public API
+- [ ] 10. Create Task Widget module and public API
   - Create TaskWidgetModule with proper providers and exports
   - Define public API surface with all exported interfaces and components
   - Configure library build with ng-packagr for optimal bundling

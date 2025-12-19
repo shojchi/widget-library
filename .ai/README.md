@@ -2,14 +2,70 @@
 
 This project uses a **multi-file rules system** to ensure consistent AI assistant behavior across different IDEs and tools.
 
-## 📁 Rules File Locations
+## 🚨 START HERE
 
-| File | Purpose | Used By |
-|------|---------|---------|
-| `.kiro/specs/angular-widget-library/rules.md` | **Master rules** (331 lines) | Primary source of truth |
-| `.cursorrules` | IDE-compatible condensed rules | Cursor, Windsurf, Cline, Roo-Cline |
-| `.github/copilot-instructions.md` | GitHub Copilot specific | GitHub Copilot |
-| `.ai/rules.md` | Central index & quick reference | Generic AI assistants |
+**Before assisting with this project:**
+1. **Read `.ai/AGENT_INSTRUCTIONS.md`** - Main instructions (READ THIS FIRST - lightweight, ~150 lines)
+2. **Load context on-demand** - Only read `.docs/` files when relevant to the current task
+
+**This is a LEARNING PROJECT** - The developer needs to do manual work. Load context files only when needed.
+
+## 📁 Project Structure
+
+```
+.ai/                          # AI Assistant Configuration
+├── AGENT_INSTRUCTIONS.md     # Main instructions (read first!)
+├── CONTEXT_INDEX.md          # Context file reference
+├── README.md                 # This file - AI rules system overview
+├── rules.md                  # Quick reference
+├── sync-rules.js             # Rules sync script
+├── sync-agents.sh            # Agent files sync script (if symlinks don't work)
+└── agents/                   # Source of truth for agent files
+    ├── README.md             # Agent files documentation
+    ├── .cursorrules          # Cursor, Windsurf, Cline
+    ├── .windsurfrules        # Windsurf AI
+    ├── .clinerules           # Cline AI
+    ├── .aiderrules           # Aider AI
+    ├── copilot-instructions.md  # GitHub Copilot
+    └── .anthropic/           # Claude Desktop
+        └── README.md
+
+.docs/                        # Project Context (the "brain")
+├── README.md                 # Documentation index
+├── rules.md                  # Master rules
+├── workspace-structure.md    # Project structure
+├── design.md                 # Architecture
+├── consumer-perspective.md   # Public API
+├── naming-convention.md      # Naming standards
+├── tasks.md                  # Current tasks
+└── requirements.md           # Requirements
+
+Root level:
+└── (No agent files in root - all in .ai/agents/)
+```
+
+## 📋 Rules File Locations
+
+| File | Purpose | Used By | Location |
+|------|---------|---------|----------|
+| **`.ai/AGENT_INSTRUCTIONS.md`** | **Main instructions** | **ALL AI agents** | **Read first!** |
+| `.docs/rules.md` | **Master rules** (331 lines) | Primary source of truth | Load on-demand |
+| `.docs/workspace-structure.md` | Project structure | All agents | Load on-demand |
+| `.docs/design.md` | Architecture | All agents | Load on-demand |
+| `.docs/consumer-perspective.md` | Library usage | All agents | Load on-demand |
+| `.docs/naming-convention.md` | Naming standards | All agents | Load on-demand |
+| `.docs/tasks.md` | Current tasks | All agents | Load on-demand |
+| `.ai/agents/.cursorrules` | IDE-compatible rules | Cursor, Windsurf, Cline | **In .ai/agents/** |
+| `.ai/agents/.windsurfrules` | Windsurf-specific | Windsurf AI | **In .ai/agents/** |
+| `.ai/agents/.clinerules` | Cline-specific | Cline AI | **In .ai/agents/** |
+| `.ai/agents/.aiderrules` | Aider-specific | Aider AI | **In .ai/agents/** |
+| `.ai/agents/copilot-instructions.md` | GitHub Copilot | GitHub Copilot | **In .ai/agents/** |
+| `.ai/agents/.anthropic/README.md` | Claude Desktop | Claude Desktop | **In .ai/agents/** |
+| `.ai/rules.md` | Quick reference | Generic AI assistants | Always available |
+| `.ai/CONTEXT_INDEX.md` | Context file index | All agents | Always available |
+| **`.ai/agents/`** | **Source of truth** | **All agent files** | **Edit here!** |
+
+> **📍 Location**: All agent files are in `.ai/agents/` - no root-level files needed. Configure your tools to read from `.ai/agents/` or use `.ai/sync-agents.sh` if a tool requires root-level files.
 
 ## 🎯 Core Philosophy
 
@@ -34,10 +90,13 @@ AI assistants working on this project should:
 ## 📚 For AI Assistants
 
 ### Quick Start
-1. Read `.kiro/specs/angular-widget-library/rules.md` for complete philosophy
-2. Check `.cursorrules` for condensed guidelines
-3. Understand the developer's experience level and learning goals
-4. Follow the teaching-first approach
+1. **Read `.ai/AGENT_INSTRUCTIONS.md`** (required! - lightweight initial load)
+2. Understand the core principle: **This is a LEARNING PROJECT** - teach, don't solve
+3. Load context files on-demand based on the current task (see `.ai/CONTEXT_INDEX.md`)
+4. Check `.cursorrules` for condensed guidelines
+5. Follow the teaching-first approach
+
+**Don't load all context files upfront!** Only read `.docs/` files when relevant.
 
 ### Key Learning Areas
 - Modern Angular v21 patterns (standalone components, signals, inject())
@@ -56,20 +115,41 @@ AI assistants working on this project should:
 
 ## 🔄 Keeping Rules in Sync
 
-The master rules are in `.kiro/specs/angular-widget-library/rules.md`.
+### Agent Files (Consolidated)
+- **Location**: `.ai/agents/` (single source of truth)
+- **Root files**: None - all files in `.ai/agents/`
+- **To edit**: Edit files directly in `.ai/agents/`
+- **If tools require root files**: Run `.ai/sync-agents.sh` to copy files to root, or configure tools to read from `.ai/agents/`
+
+### Master Rules
+The master rules are in `.docs/rules.md`.
 
 When updating rules:
-1. Update the master file first
-2. Sync relevant changes to `.cursorrules`
-3. Update `.github/copilot-instructions.md` if needed
+1. Update the master file first (`.docs/rules.md`)
+2. Sync relevant changes to `.ai/agents/.cursorrules` and other agent files
+3. Update `.ai/agents/copilot-instructions.md` if needed
 4. Keep `.ai/rules.md` as a high-level index
+5. Update `.ai/AGENT_INSTRUCTIONS.md` if core principles change
 
 ## 🚀 For Developers
 
+### Editing Agent Files
+
+**Edit files directly in `.ai/agents/`** - this is the only location.
+
+If a tool requires files in root (most don't), you can:
+```bash
+# Use the sync script to copy to root
+./.ai/sync-agents.sh
+
+# Or configure the tool to read from .ai/agents/ (preferred)
+```
+
 ### Adding New Rules
-1. Edit `.kiro/specs/angular-widget-library/rules.md`
-2. Run sync script (if available) or manually update other files
-3. Commit all rule files together
+1. Edit `.docs/rules.md` (master rules)
+2. Update relevant agent files in `.ai/agents/`
+3. Run sync script if needed (for non-symlink systems)
+4. Commit all rule files together
 
 ### Testing Rules
 Start a conversation with your AI assistant and verify:
@@ -81,7 +161,7 @@ Start a conversation with your AI assistant and verify:
 ## 📖 Documentation
 
 ### Full Rules Documentation
-See `.kiro/specs/angular-widget-library/rules.md` for:
+See `.docs/rules.md` for:
 - Complete teaching philosophy
 - Detailed tech stack guidance
 - Learning progression path
@@ -94,6 +174,12 @@ See `.cursorrules` for:
 - Code style examples
 - Common patterns
 - Quick anti-pattern reference
+
+### Context Index
+See `.ai/CONTEXT_INDEX.md` for:
+- Complete list of context files
+- When to load each file (on-demand strategy)
+- Loading examples and best practices
 
 ## 🎓 Philosophy in Action
 

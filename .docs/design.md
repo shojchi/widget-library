@@ -34,14 +34,22 @@ The system uses a layered frontend architecture with mock data:
 
 ### Library Public API
 
+The library exports widgets and their related types. The first widget is the **Task Widget**, which provides task management functionality.
+
 ```typescript
 // Public API Surface (public-api.ts)
-export * from './lib/task-widget.module';
-export * from './lib/components/task-widget/task-widget.component';
-export * from './lib/models/task.interface';
-export * from './lib/models/widget-config.interface';
+// Task Widget (first widget in the library)
+export * from './lib/task-widget/task-widget.module';
+export * from './lib/task-widget/components/task-widget.component';
+export * from './lib/task-widget/models/task.interface';
+export * from './lib/task-widget/models/task-widget-config.interface';
 
-// Widget Configuration Interface
+// Future widgets can be added here:
+// export * from './lib/chart-widget/...';
+// export * from './lib/table-widget/...';
+
+// Task Widget Configuration Interface
+// Note: This is specific to the Task Widget. Other widgets will have their own config interfaces.
 export interface TaskWidgetConfig {
   graphqlEndpoint: string;
   theme?: 'light' | 'dark' | 'custom';
@@ -76,8 +84,10 @@ export enum TaskPriority {
 
 ### NgRx State Architecture
 
+**Note**: The state architecture below is specific to the **Task Widget**. Each widget in the library can have its own state slice and feature module.
+
 ```typescript
-// State Interface
+// Task Widget State Interface
 export interface TaskState {
   tasks: Task[];
   loading: boolean;
@@ -115,8 +125,10 @@ export const selectSelectedTask = createSelector(selectTaskState, state => state
 
 ### GraphQL Integration
 
+**Note**: The GraphQL integration below is specific to the **Task Widget**. Each widget can define its own GraphQL operations.
+
 ```typescript
-// GraphQL Queries and Mutations
+// Task Widget GraphQL Queries and Mutations
 export const GET_TASKS = gql`
   query GetTasks {
     tasks {
@@ -165,7 +177,7 @@ export const DELETE_TASK = gql`
   }
 `;
 
-// GraphQL Service
+// Task Widget GraphQL Service
 @Injectable()
 export class TaskGraphQLService {
   constructor(private apollo: Apollo) {}
@@ -209,7 +221,9 @@ export class TaskGraphQLService {
 
 ## Data Models
 
-### Task Entity
+### Task Widget Data Models
+
+The following data models are specific to the **Task Widget**. Other widgets will define their own domain models.
 
 ```typescript
 export interface Task {
@@ -238,6 +252,8 @@ export interface UpdateTaskInput {
 ```
 
 ### Mock GraphQL Schema
+
+**Note**: This schema is for the Task Widget's backend. Each widget can have its own GraphQL schema or share a common schema.
 
 ```graphql
 type Task {
@@ -330,6 +346,8 @@ Based on the prework analysis, here are the key correctness properties for this 
 *For any* widget with multiple components, all components should display consistent data from the shared NgRx store
 **Validates: Requirements 3.5**
 
+**Note**: These properties are defined for the Task Widget. Future widgets will have their own correctness properties based on their specific requirements.
+
 **Property 10: Task creation consistency**
 *For any* valid task input, creating a task should add it to both the UI list and the NgRx store with matching data
 **Validates: Requirements 4.2**
@@ -411,13 +429,13 @@ The project uses a focused testing approach suitable for the 1-2 week timeline:
 
 ### Week 1 (10-14 hours):
 - **Days 1-2**: Project setup, Angular library creation, mock GraphQL server
-- **Days 3-4**: NgRx store setup, basic actions, reducers, and selectors  
-- **Days 5-7**: Core widget component, GraphQL integration with Apollo
+- **Days 3-4**: NgRx store setup, basic actions, reducers, and selectors for Task Widget
+- **Days 5-7**: Task Widget component implementation, GraphQL integration with Apollo
 
 ### Week 2 (4-14 hours):
-- **Days 8-9**: NgRx effects, complete CRUD operations
-- **Days 10-11**: Widget styling, configuration system, host integration
-- **Days 12-14**: Testing, documentation, and polish
+- **Days 8-9**: NgRx effects for Task Widget, complete CRUD operations
+- **Days 10-11**: Task Widget styling, configuration system, host integration
+- **Days 12-14**: Testing, documentation, and polish for Task Widget
 
 ### Key Learning Milestones:
 - **Day 2**: Angular library project structure and build process
@@ -428,3 +446,14 @@ The project uses a focused testing approach suitable for the 1-2 week timeline:
 - **Day 14**: Complete widget library with testing and documentation
 
 This focused approach provides hands-on experience with Angular library development, GraphQL integration, and NgRx state management while being achievable within your time constraints.
+
+## Library Extensibility
+
+The library is designed to be extensible. After completing the Task Widget, additional widgets can be added following the same patterns:
+
+- Each widget should have its own feature module (e.g., `TaskWidgetModule`, `ChartWidgetModule`)
+- Each widget can have its own NgRx feature slice
+- Each widget can define its own GraphQL operations
+- All widgets share the same library infrastructure (build system, testing setup, etc.)
+
+This architecture allows the library to grow while maintaining clear separation of concerns between different widget types.

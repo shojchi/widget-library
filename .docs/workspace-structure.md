@@ -68,14 +68,14 @@ widget-library-workspace/
 
 | Project | Prefix | Example | Why? |
 |---------|--------|---------|------|
-| **Library** | `lib-` | `<lib-widget>` | Distinguishes library components from consumer's components |
+| **Library** | `wdg-` | `<wdg-widget>` | Unified prefix for components and CSS, distinctive and memorable |
 | **Demo App** | `app-` | `<app-root>` | Standard Angular app prefix |
 
 ### CSS Classes
 
 | Project | Prefix | Example | Why? |
 |---------|--------|---------|------|
-| **Library** | `wl-` | `.wl-card` | Short, memorable, avoids conflicts with consumer's CSS |
+| **Library** | `wdg-` | `.wdg-card` | Unified prefix matching component selectors for consistency |
 | **Demo App** | (none) | `.demo-header` | Internal to demo app, not distributed |
 
 ### File Structure
@@ -92,7 +92,7 @@ import { WidgetComponent } from 'widget-library';
 @Component({
   selector: 'app-root',  // app- prefix
   imports: [WidgetComponent],
-  template: `<lib-widget></lib-widget>`  // lib- prefix
+  template: `<wdg-widget></wdg-widget>`  // wdg- prefix
 })
 export class App {}
 ```
@@ -123,7 +123,7 @@ export default tseslint.config(
     rules: {
       '@angular-eslint/component-selector': [
         'error',
-        { prefix: 'lib' }  // ✅ Library uses 'lib-'
+        { prefix: 'wdg' }  // ✅ Library uses 'wdg-'
       ]
     }
   }
@@ -208,7 +208,7 @@ npm publish
 
 1. **Keep library code in `projects/widget-library/`**
    - Only export what's needed via `public-api.ts`
-   - Use `lib-` prefix for all components/directives
+   - Use `wdg-` prefix for all components/directives and CSS classes
 
 2. **Use demo app to test library**
    - Import from `widget-library` (not relative paths)
@@ -227,7 +227,7 @@ npm publish
 
 1. **Don't mix prefixes**
    - Library components should never use `app-` prefix
-   - Demo app components should never use `lib-` prefix
+   - Demo app components should never use `wdg-` prefix
 
 2. **Don't export everything**
    - Only export public API from `public-api.ts`
@@ -260,7 +260,7 @@ As a library consumer, you would:
    @Component({
      selector: 'my-app',
      imports: [WidgetComponent],
-     template: '<lib-widget></lib-widget>'
+     template: '<wdg-widget></wdg-widget>'
    })
    export class MyApp {}
    ```

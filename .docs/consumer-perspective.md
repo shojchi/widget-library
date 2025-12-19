@@ -51,12 +51,12 @@ When a developer uses your library:
 // 2. They import from it
 import { WidgetComponent, WidgetService } from 'widget-library';
 
-// 3. They use your components with 'lib-' prefix
+// 3. They use your components with 'wdg-' prefix
 @Component({
   selector: 'consumer-app',  // Their own prefix
   imports: [WidgetComponent],
   template: `
-    <lib-widget></lib-widget>  <!-- ✅ They see 'lib-' -->
+    <wdg-widget></wdg-widget>  <!-- ✅ They see 'wdg-' -->
   `
 })
 export class ConsumerApp {}
@@ -67,19 +67,19 @@ export class ConsumerApp {}
 ```html
 <!-- Consumer's app HTML -->
 <consumer-app>
-  <lib-widget class="wl-widget wl-card">  <!-- ✅ They see 'lib-' and 'wl-' -->
-    <div class="wl-header">Widget Title</div>
-    <div class="wl-content">Widget content</div>
-  </lib-widget>
+  <wdg-widget class="wdg-widget wdg-card">  <!-- ✅ They see 'wdg-' for both components and CSS -->
+    <div class="wdg-header">Widget Title</div>
+    <div class="wdg-content">Widget content</div>
+  </wdg-widget>
 </consumer-app>
 ```
 
 **CSS they see**:
 ```css
 /* From your library */
-.wl-widget { /* ... */ }
-.wl-card { /* ... */ }
-.wl-header { /* ... */ }
+.wdg-widget { /* ... */ }
+.wdg-card { /* ... */ }
+.wdg-header { /* ... */ }
 ```
 
 ---
@@ -103,8 +103,8 @@ export class ConsumerApp {}
 
 | Prefix | Where Used | Visible to Consumers? | Example |
 |--------|------------|---------------------|---------|
-| **`lib-`** | Library component selectors | ✅ **YES** | `<lib-widget>` |
-| **`wl-`** | Library CSS classes | ✅ **YES** | `.wl-card` |
+| **`wdg-`** | Library component selectors | ✅ **YES** | `<wdg-widget>` |
+| **`wdg-`** | Library CSS classes | ✅ **YES** | `.wdg-card` |
 | **`app-`** | Demo app components | ❌ **NO** | `<app-root>` (only in your dev environment) |
 
 ---
@@ -121,7 +121,7 @@ widget-library-workspace/
 │
 └── projects/widget-library/       # Library (PUBLISHED)
     └── src/lib/
-        └── widget.component.ts    # selector: 'lib-widget' ✅
+        └── widget.component.ts    # selector: 'wdg-widget' ✅
 ```
 
 ### Consumer's node_modules
@@ -130,7 +130,7 @@ widget-library-workspace/
 node_modules/
 └── widget-library/                # Only this gets installed
     ├── index.d.ts
-    ├── widget.component.d.ts      # selector: 'lib-widget' ✅
+    ├── widget.component.d.ts      # selector: 'wdg-widget' ✅
     └── package.json
 ```
 
@@ -188,8 +188,8 @@ node_modules/@angular/material/
 ## ✅ Summary
 
 **Consumers see**:
-- ✅ `lib-` prefix (component selectors)
-- ✅ `wl-` prefix (CSS classes)
+- ✅ `wdg-` prefix (component selectors)
+- ✅ `wdg-` prefix (CSS classes)
 - ✅ Only what's exported from `projects/widget-library/src/public-api.ts`
 
 **Consumers DON'T see**:
