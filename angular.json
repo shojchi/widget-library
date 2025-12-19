@@ -101,6 +101,15 @@
           "options": {
             "tsConfig": "projects/widget-library/tsconfig.spec.json"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/widget-library/**/*.ts",
+              "projects/widget-library/**/*.html"
+            ]
+          }
         }
       }
     }

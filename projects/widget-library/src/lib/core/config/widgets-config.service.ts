@@ -75,6 +75,9 @@ function deepMerge<T extends object>(target: T, source: Partial<T> | { [K in key
   return result;
 }
 
+/**
+ * Service responsible for managing global SDK configuration
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -82,6 +85,9 @@ export class SdkConfigService {
   private readonly _config: WidgetLibraryConfig;
   private readonly _isDev: boolean;
 
+  /**
+   * Initializes the configuration service
+   */
   constructor() {
     // Inject config with optional flag - might not be available yet
     const userConfig = inject(WIDGET_LIBRARY_CONFIG, { optional: true });

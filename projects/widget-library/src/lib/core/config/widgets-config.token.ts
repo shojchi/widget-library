@@ -9,7 +9,7 @@ export const WIDGET_LIBRARY_CONFIG = new InjectionToken<WidgetLibraryConfig>(
   'WidgetLibrary.Config',
   {
     providedIn: 'root',
-    factory: () => {
+    factory: (): WidgetLibraryConfig => {
       throw new Error(
         'WidgetLibrary is not configured. Please call provideWidgetLibrary() in your application providers.'
       );
@@ -17,9 +17,15 @@ export const WIDGET_LIBRARY_CONFIG = new InjectionToken<WidgetLibraryConfig>(
   }
 );
 
+/**
+ * Helper function to inject the SDK configuration
+ */
 export function injectSdkConfig(): WidgetLibraryConfig {
-  return inject(WIDGET_LIBRARY_CONFIG, { optional: true }) || 
-    (() => {
-      throw new Error('WidgetLibrary is not configured. Call provideWidgetLibrary() first.');
-    })();
+  const config = inject(WIDGET_LIBRARY_CONFIG, { optional: true });
+
+  if (!config) {
+    throw new Error('WidgetLibrary is not configured. Call provideWidgetLibrary() first.');
+  }
+
+  return config;
 }

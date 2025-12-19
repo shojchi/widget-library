@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 
+/**
+ *
+ */
 @Component({
-  selector: 'lib-widget-library',
+  selector: 'wdg-widget-library',
   imports: [],
   template: `
     <p>
