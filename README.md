@@ -15,6 +15,7 @@ You need to have [node.js v24.12.0](https://nodejs.org/en/download/archive/v24.1
 > Helpful advice for doing things better or more easily.
 
 > [!IMPORTANT]
+> **Prerequisites**
 > Key information users need to know to achieve their goal.
 
 > [!WARNING]
