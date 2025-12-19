@@ -1,5 +1,5 @@
 // src/lib/core/config/sdk-config.service.ts
-import { Injectable, inject, InjectFlags } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { WIDGET_LIBRARY_CONFIG } from './widgets-config.token';
 import { WidgetLibraryConfig, PartialWidgetLibraryConfig } from './widgets-config.interface';
 
@@ -33,25 +33,42 @@ const DEFAULT_CONFIG: WidgetLibraryConfig = {
   }
 };
 
+// Type declaration for Angular's internal dev mode flag
+interface WindowWithNgDevMode extends Window {
+  ngDevMode?: boolean;
+}
+
 // Check if we're in development mode
-const isDevMode = () => {
+const isDevMode = (): boolean => {
   try {
     return typeof window !== 'undefined' &&
-      (window as any).ngDevMode !== false;
+      (window as WindowWithNgDevMode).ngDevMode !== false;
   } catch {
     return false;
   }
 };
 
-// Deep merge utility
-function deepMerge<T extends object>(target: T, source: Partial<T>): T {
-  const result = { ...target };
+// Deep merge utility - accepts deep partial types
+function deepMerge<T extends object>(target: T, source: Partial<T> | { [K in keyof T]?: Partial<T[K]> }): T {
+  const result = { ...target } as T;
 
   for (const key in source) {
-    if (source[key] && typeof source[key] === 'object' && !Array.isArray(source[key])) {
-      result[key] = deepMerge(result[key] || {}, source[key] as any);
-    } else if (source[key] !== undefined) {
-      result[key] = source[key] as any;
+    if (!(key in source)) continue;
+    
+    const sourceValue = source[key];
+    const targetValue = result[key];
+    
+    if (sourceValue && typeof sourceValue === 'object' && !Array.isArray(sourceValue)) {
+      // Nested object merge - ensure target value exists or use empty object
+      if (targetValue && typeof targetValue === 'object' && !Array.isArray(targetValue)) {
+        result[key] = deepMerge(targetValue, sourceValue) as T[Extract<keyof T, string>];
+      } else {
+        // Target doesn't have this nested object, create it from source
+        result[key] = { ...sourceValue } as T[Extract<keyof T, string>];
+      }
+    } else if (sourceValue !== undefined) {
+      // Primitive or array assignment
+      result[key] = sourceValue as T[Extract<keyof T, string>];
     }
   }
 
@@ -67,11 +84,11 @@ export class SdkConfigService {
 
   constructor() {
     // Inject config with optional flag - might not be available yet
-    const userConfig = inject(WIDGET_LIBRARY_CONFIG, InjectFlags.Optional);
+    const userConfig = inject(WIDGET_LIBRARY_CONFIG, { optional: true });
     this._isDev = isDevMode();
 
-    // Merge user config with defaults
-    this._config = this.buildConfig(userConfig);
+    // Merge user config with defaults (convert null to undefined)
+    this._config = this.buildConfig(userConfig ?? undefined);
 
     // Validate final config
     this.validateConfig(this._config);

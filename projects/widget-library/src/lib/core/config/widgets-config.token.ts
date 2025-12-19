@@ -1,15 +1,25 @@
-import { InjectionToken } from '@angular/core';
-import { MySdkConfig } from './widgets-config.interface';
+import { InjectionToken, inject } from '@angular/core';
+import { WidgetLibraryConfig } from './widgets-config.interface';
 
-
-export const SDK_CONFIG = new InjectionToken<MySdkConfig>(
-    'SDK_CONFIG',
-    {
-        providedIn: 'root',
-        factory: () => {
-            throw new Error(
-                'SDK_CONFIG must be provided using MySdkModule.forRoot()'
-            );
-        }
+/**
+ * Injection token for SDK configuration
+ * Used internally - consumers should use provideMySdk()
+ */
+export const WIDGET_LIBRARY_CONFIG = new InjectionToken<WidgetLibraryConfig>(
+  'WidgetLibrary.Config',
+  {
+    providedIn: 'root',
+    factory: () => {
+      throw new Error(
+        'WidgetLibrary is not configured. Please call provideWidgetLibrary() in your application providers.'
+      );
     }
+  }
 );
+
+export function injectSdkConfig(): WidgetLibraryConfig {
+  return inject(WIDGET_LIBRARY_CONFIG, { optional: true }) || 
+    (() => {
+      throw new Error('WidgetLibrary is not configured. Call provideWidgetLibrary() first.');
+    })();
+}
