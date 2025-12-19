@@ -7,23 +7,6 @@ You need to have [node.js v24.12.0](https://nodejs.org/en/download/archive/v24.1
 > [!TIP]
 > Project has .nvmrc file, so you can use `nvm use` to switch to the correct version.
 
-
-> [!NOTE]
-> Useful information that users should know, even when skimming content.
-
-> [!TIP]
-> Helpful advice for doing things better or more easily.
-
-> [!IMPORTANT]
-> **Prerequisites**
-> Key information users need to know to achieve their goal.
-
-> [!WARNING]
-> Urgent info that needs immediate user attention to avoid problems.
-
-> [!CAUTION]
-> Advises about risks or negative outcomes of certain actions.
-
 ## Setup steps
 
 1. Clone the [repository](https://github.com/shojchi/widget-library)
