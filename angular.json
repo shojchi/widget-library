@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "my-sdk": {
+    "demo-app": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -56,16 +56,25 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "my-sdk:build:production"
+              "buildTarget": "demo-app:build:production"
             },
             "development": {
-              "buildTarget": "my-sdk:build:development"
+              "buildTarget": "demo-app:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -73,7 +82,7 @@
       "projectType": "library",
       "root": "projects/widget-library",
       "sourceRoot": "projects/widget-library/src",
-      "prefix": "lib",
+      "prefix": "wdg",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",

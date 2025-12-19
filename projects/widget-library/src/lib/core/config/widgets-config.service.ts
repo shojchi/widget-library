@@ -18,7 +18,7 @@ const DEFAULT_CONFIG: WidgetLibraryConfig = {
   ui: {
     theme: 'light',
     primaryColor: '#3f51b5',
-    cssPrefix: 'my-sdk'
+    cssPrefix: 'wdg'
   },
   features: {
     analytics: false,
