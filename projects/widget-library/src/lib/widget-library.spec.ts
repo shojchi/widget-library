@@ -9,8 +9,7 @@ describe('WidgetLibrary', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [WidgetLibrary]
-    })
-    .compileComponents();
+    }).compileComponents();
 
     fixture = TestBed.createComponent(WidgetLibrary);
     component = fixture.componentInstance;

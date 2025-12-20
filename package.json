@@ -15,17 +15,29 @@
     "lint:app": "eslint \"./src/**/*.{ts,html}\"",
     "lint:app:fix": "eslint \"./src/**/*.{ts,html}\" --fix",
     "lint:validate": "node scripts/validate-eslint.js",
-    "format": "prettier --write \"**/*.{ts,html,css,scss,json,md}\"",
-    "format:check": "prettier --check \"**/*.{ts,html,css,scss,json,md}\""
+    "format": "prettier --write \"src/**/*.{ts,html,css,scss,json}\" \"projects/widget-library/**/*.{ts,html,css,scss,json}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,html,css,scss,json}\" \"projects/widget-library/**/*.{ts,html,css,scss,json}\""
   },
   "prettier": {
-    "printWidth": 100,
+    "printWidth": 90,
     "singleQuote": true,
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": true,
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+    "endOfLine": "lf",
     "overrides": [
       {
         "files": "*.html",
         "options": {
           "parser": "angular"
+        }
+      },
+      {
+        "files": "*.graphql",
+        "options": {
+          "parser": "graphql"
         }
       }
     ]

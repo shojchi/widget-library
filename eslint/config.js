@@ -2,6 +2,8 @@ import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import angular from 'angular-eslint';
+import prettier from 'eslint-plugin-prettier';
+import prettierConfig from 'eslint-config-prettier';
 import { defineConfig } from 'eslint/config';
 
 import { demoAppRules } from './rules/app/coding-style.js';
@@ -62,9 +64,11 @@ export default defineConfig([
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    plugins: { prettier },
     rules: {
       ...demoAppRules,
       'no-restricted-imports': ['error', { patterns: demoAppRestrictedImports }],
+      'prettier/prettier': 'error',
     },
   },
   // 🟢 Demo App: HTML templates
@@ -88,9 +92,11 @@ export default defineConfig([
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    plugins: { prettier },
     rules: {
       ...libraryRules,
       'no-restricted-imports': ['error', { patterns: libraryRestrictedImports }],
+      'prettier/prettier': 'error',
     },
   },
   // 🟢 Library: HTML templates
@@ -104,4 +110,5 @@ export default defineConfig([
       '@angular-eslint/template/no-negated-async': 'error',
     },
   },
+  prettierConfig,
 ]);
