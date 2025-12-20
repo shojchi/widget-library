@@ -1,0 +1,14 @@
+/* Widget Library Demo Styles */
+.widget-demo {
+  margin: 2rem 0;
+  padding: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.widget-demo h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.5rem;
+}
