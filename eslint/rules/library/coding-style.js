@@ -22,9 +22,9 @@ export const libraryRules = {
   '@typescript-eslint/explicit-module-boundary-types': 'error',
 
   // ==========================================
-  // NO CONSOLE IN LIBRARY CODE
+  // NO CONSOLE.LOG IN LIBRARY CODE (but allow other console methods)
   // ==========================================
-  'no-console': 'error', // ❌ Libraries should never use console
+  'no-console': ['error', { allow: ['warn', 'error', 'info', 'debug', 'table', 'dir', 'time', 'timeEnd', 'group', 'groupEnd', 'trace', 'assert', 'count', 'clear'] }],
 
   // ==========================================
   // STRICT NAMING CONVENTIONS

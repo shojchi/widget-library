@@ -14,16 +14,6 @@ export const demoAppRules = {
   '@typescript-eslint/explicit-function-return-type': 'off', // No requirement
 
   // ==========================================
-  // ALLOW CONSOLE FOR DEBUGGING
-  // ==========================================
-  'no-console': [
-      'warn',
-      {
-          allow: ['warn', 'error', 'info'], // ✅ Allow console methods for dev
-      },
-  ],
-
-  // ==========================================
   // RELAXED NAMING CONVENTIONS
   // ==========================================
   '@typescript-eslint/naming-convention': [

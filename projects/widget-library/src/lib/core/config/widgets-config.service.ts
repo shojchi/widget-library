@@ -8,29 +8,29 @@ const DEFAULT_CONFIG: WidgetLibraryConfig = {
   api: {
     graphqlEndpoint: 'http://localhost:3000/graphql', // Encourage local dev
     timeout: 30000,
-    enableInterceptors: false
+    enableInterceptors: false,
   },
   state: {
     enableDevTools: false,
     enableRuntimeChecks: false,
-    serializability: 'warn'
+    serializability: 'warn',
   },
   ui: {
     theme: 'light',
     primaryColor: '#3f51b5',
-    cssPrefix: 'wdg'
+    cssPrefix: 'wdg',
   },
   features: {
     analytics: false,
     offlineSupport: true,
     subscriptions: false,
-    experimental: false
+    experimental: false,
   },
   logging: {
     level: 'warn',
     console: false,
-    errorDisplay: 'toast'
-  }
+    errorDisplay: 'toast',
+  },
 };
 
 // Type declaration for Angular's internal dev mode flag
@@ -41,15 +41,17 @@ interface WindowWithNgDevMode extends Window {
 // Check if we're in development mode
 const isDevMode = (): boolean => {
   try {
-    return typeof window !== 'undefined' &&
-      (window as WindowWithNgDevMode).ngDevMode !== false;
+    return typeof window !== 'undefined' && (window as WindowWithNgDevMode).ngDevMode !== false;
   } catch {
     return false;
   }
 };
 
 // Deep merge utility - accepts deep partial types
-function deepMerge<T extends object>(target: T, source: Partial<T> | { [K in keyof T]?: Partial<T[K]> }): T {
+function deepMerge<T extends object>(
+  target: T,
+  source: Partial<T> | { [K in keyof T]?: Partial<T[K]> },
+): T {
   const result = { ...target } as T;
 
   for (const key in source) {
@@ -79,7 +81,7 @@ function deepMerge<T extends object>(target: T, source: Partial<T> | { [K in key
  * Service responsible for managing global SDK configuration
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SdkConfigService {
   private readonly _config: WidgetLibraryConfig;
@@ -140,7 +142,7 @@ export class SdkConfigService {
     Object.assign(this._config, newConfig);
 
     if (this._config.logging?.console) {
-      console.info('MySdk configuration updated:', updates);
+      console.info('widget-library configuration updated:', updates);
     }
   }
 
@@ -159,16 +161,16 @@ export class SdkConfigService {
   private applyDevOverrides(): void {
     const devConfig: PartialWidgetLibraryConfig = {
       api: {
-        enableInterceptors: true
+        enableInterceptors: true,
       },
       state: {
         enableDevTools: true,
-        enableRuntimeChecks: true
+        enableRuntimeChecks: true,
       },
       logging: {
         console: true,
-        level: 'info'
-      }
+        level: 'info',
+      },
     };
 
     Object.assign(this._config, deepMerge(this._config, devConfig));
@@ -179,7 +181,7 @@ export class SdkConfigService {
 
     // Validate required fields
     if (!api.graphqlEndpoint?.trim()) {
-      throw new Error('[MySdk] Configuration error: graphqlEndpoint is required');
+      throw new Error('[widget-library] Configuration error: graphqlEndpoint is required');
     }
 
     // Validate URL format
@@ -187,14 +189,14 @@ export class SdkConfigService {
       new URL(api.graphqlEndpoint);
     } catch {
       throw new Error(
-        `[MySdk] Configuration error: Invalid graphqlEndpoint URL: ${api.graphqlEndpoint}`
+        `[widget-library] Configuration error: Invalid graphqlEndpoint URL: ${api.graphqlEndpoint}`,
       );
     }
 
     // Validate timeout
     if (api.timeout && api.timeout < 100) {
       throw new Error(
-        `[MySdk] Configuration error: timeout must be at least 100ms, got ${api.timeout}`
+        `[widget-library] Configuration error: timeout must be at least 100ms, got ${api.timeout}`,
       );
     }
 
@@ -202,7 +204,7 @@ export class SdkConfigService {
     const validThemes = ['light', 'dark', 'system'];
     if (ui?.theme && !validThemes.includes(ui.theme)) {
       throw new Error(
-        `[MySdk] Configuration error: Invalid theme "${ui.theme}". Must be one of: ${validThemes.join(', ')}`
+        `[widget-library] Configuration error: Invalid theme "${ui.theme}". Must be one of: ${validThemes.join(', ')}`,
       );
     }
 
@@ -210,7 +212,7 @@ export class SdkConfigService {
     const validLevels = ['debug', 'info', 'warn', 'error', 'off'];
     if (logging?.level && !validLevels.includes(logging.level)) {
       throw new Error(
-        `[MySdk] Configuration error: Invalid log level "${logging.level}". Must be one of: ${validLevels.join(', ')}`
+        `[widget-library] Configuration error: Invalid log level "${logging.level}". Must be one of: ${validLevels.join(', ')}`,
       );
     }
   }
