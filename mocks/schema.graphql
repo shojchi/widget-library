@@ -1,0 +1,21 @@
+type Task {
+  id: ID!
+  title: String!
+  description: String
+  status: TaskStatus!
+  priority: TaskPriority!
+  createdAt: String!
+  updatedAt: String!
+}
+
+enum TaskStatus {
+ TODO
+ IN_PROGRESS
+ DONE
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
