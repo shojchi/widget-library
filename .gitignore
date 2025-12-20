@@ -37,3 +37,7 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Angular cache and build artifacts
+.angular
+widgets-library.code-workspace

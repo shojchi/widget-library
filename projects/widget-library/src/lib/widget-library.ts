@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
+/**
+ *
+ */
 @Component({
-  selector: 'lib-widget-library',
+  selector: 'wdg-widget-library',
   imports: [],
   template: `
     <p>
@@ -9,6 +12,7 @@ import { Component } from '@angular/core';
     </p>
   `,
   styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class WidgetLibrary {
 

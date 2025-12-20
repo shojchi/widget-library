@@ -1,7 +1,6 @@
 // src/lib/core/config/sdk-config.interface.ts
 /**
  * Configuration for WidgetLibrary library
- * 
  * @example
  * ```typescript
  * const config: WidgetLibraryConfig = {
