@@ -24,7 +24,9 @@ export function injectSdkConfig(): WidgetLibraryConfig {
   const config = inject(WIDGET_LIBRARY_CONFIG, { optional: true });
 
   if (!config) {
-    throw new Error('WidgetLibrary is not configured. Call provideWidgetLibrary() first.');
+    throw new Error(
+      'WidgetLibrary is not configured. Call provideWidgetLibrary() first.'
+    );
   }
 
   return config;
