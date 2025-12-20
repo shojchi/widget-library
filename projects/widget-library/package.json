@@ -1,6 +1,7 @@
 {
   "name": "widget-library",
   "version": "0.0.1",
+  "type": "module",
   "peerDependencies": {
     "@angular/common": "^21.0.0",
     "@angular/core": "^21.0.0"

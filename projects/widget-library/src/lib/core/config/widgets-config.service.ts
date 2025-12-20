@@ -106,7 +106,7 @@ export class SdkConfigService {
 
     // Log initialization if enabled
     if (this._config.logging?.console && this._config.logging.level === 'debug') {
-      console.debug('MySdk initialized with config:', this._config);
+      console.debug('library-widget initialized with config:', this._config);
     }
   }
 
