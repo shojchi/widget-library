@@ -53,24 +53,53 @@ export const handlers = [
 ];
 
 const validateRequiredFields = <T extends Record<string, any>, K extends keyof T>(
-  input: T | undefined, 
+  input: T | undefined,
   requiredFields: K[]
 ): T & Required<Pick<T, K>> => {
   if (!input) {
     throw new Error('Input is required');
   }
-  
+
   const missingFields: string[] = [];
-  
+
   for (const field of requiredFields) {
     if (input[field] === undefined || input[field] === null) {
       missingFields.push(String(field));
     }
   }
-  
+
   if (missingFields.length > 0) {
     throw new Error(`Missing required fields: ${missingFields.join(', ')}`);
   }
-  
+
   return input as T & Required<Pick<T, K>>;
 };
+
+// interface UpdateTaskResponse {
+//   updateTask: Task;
+// }
+
+// interface DeleteTaskResponse {
+//   deleteTask: boolean;
+// }
+
+// graphql.mutation<UpdateTaskResponse, TaskVariables>('updateTask', ({ variables }) => {
+//   const { id, input } = variables;
+//   const taskIndex = mockTasks.findIndex(t => t.id === id);
+//   if (taskIndex === -1) {
+//     return HttpResponse.json({ errors: [{ message: 'Task not found' }] });
+//   }
+//   const updatedTask = { ...mockTasks[taskIndex], ...input, updatedAt: new Date().toISOString() };
+//   mockTasks[taskIndex] = updatedTask;
+//   return HttpResponse.json({ data: { updateTask: updatedTask } });
+// }),
+
+// graphql.mutation<DeleteTaskResponse, TaskVariables>('deleteTask', ({ variables }) => {
+//   const { id } = variables;
+//   const taskIndex = mockTasks.findIndex(t => t.id === id);
+//   if (taskIndex === -1) {
+//     return HttpResponse.json({ errors: [{ message: 'Task not found' }] });
+//   }
+//   mockTasks.splice(taskIndex, 1);
+//   return HttpResponse.json({ data: { deleteTask: true } });
+// })
