@@ -1,0 +1,97 @@
+<div class="playground-container">
+  <!-- Header -->
+  <header class="playground-header">
+    <div class="header-content">
+      <h1 class="title">
+        <span class="icon">🚀</span>
+        GraphQL Playground
+      </h1>
+      <p class="subtitle">Test your GraphQL queries and mutations</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="playground-content">
+    <!-- Left Panel: Query Editor -->
+    <div class="editor-panel">
+      <div class="panel-header">
+        <h2>Query Editor</h2>
+        <button class="execute-btn" (click)="executeQuery()" [disabled]="loading()">
+          @if (loading()) {
+            <span class="spinner"></span>
+            Executing...
+          } @else {
+            ▶ Execute
+          }
+        </button>
+      </div>
+
+      <!-- Example Queries -->
+      <div class="examples">
+        <label class="examples-label">Examples:</label>
+        <div class="examples-buttons">
+          @for (example of examples; track example.name) {
+            <button class="example-btn" (click)="loadExample(example)">
+              {{ example.name }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- Query Textarea -->
+      <div class="editor-section">
+        <label class="editor-label">Query / Mutation</label>
+        <textarea
+          class="query-editor"
+          [value]="query()"
+          (input)="query.set($any($event.target).value)"
+          placeholder="Enter your GraphQL query here..."
+          spellcheck="false"
+        ></textarea>
+      </div>
+
+      <!-- Variables Textarea -->
+      <div class="editor-section">
+        <label class="editor-label">Variables (JSON)</label>
+        <textarea
+          class="variables-editor"
+          [value]="variables()"
+          (input)="variables.set($any($event.target).value)"
+          placeholder='{ "key": "value" }'
+          spellcheck="false"
+        ></textarea>
+      </div>
+    </div>
+
+    <!-- Right Panel: Results -->
+    <div class="results-panel">
+      <div class="panel-header">
+        <h2>Response</h2>
+      </div>
+
+      <div class="results-content">
+        @if (loading()) {
+          <div class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>Executing query...</p>
+          </div>
+        } @else if (error()) {
+          <div class="error-state">
+            <div class="error-icon">⚠️</div>
+            <h3>Error</h3>
+            <pre class="error-message">{{ error() }}</pre>
+          </div>
+        } @else if (result()) {
+          <div class="result-display">
+            <pre class="result-json">{{ formatJson(result()) }}</pre>
+          </div>
+        } @else {
+          <div class="empty-state">
+            <div class="empty-icon">📝</div>
+            <p>Execute a query to see results</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
