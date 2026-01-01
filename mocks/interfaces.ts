@@ -1,9 +1,11 @@
+import { TaskStatus, TaskPriority } from '../src/generated/graphql';
+
 export interface TaskData {
   id: string;
   title: string;
   description?: string;
-  status: 'TODO' | 'IN_PROGRESS' | 'DONE';
-  priority: 'LOW' | 'MEDIUM' | 'HIGH';
+  status: TaskStatus;
+  priority: TaskPriority;
   createdAt: string;
   updatedAt: string;
   assignedTo?: string; // Store user ID

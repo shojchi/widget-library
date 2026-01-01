@@ -13,6 +13,8 @@ const GET_TASKS_STRING = `
       description
       status
       priority
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -25,6 +27,8 @@ const GET_TASKS_QUERY = gql`
       description
       status
       priority
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -154,7 +158,17 @@ export class ApolloTestComponent {
       .subscribe({
         next: result => {
           if (result.data) {
-            this.apolloTasks.set(result.data.tasks);
+            // Map Apollo result to TaskData by extracting fields (removes __typename)
+            const tasks: TaskData[] = result.data.tasks.map(task => ({
+              id: task.id,
+              title: task.title,
+              description: task.description ?? undefined,
+              status: task.status,
+              priority: task.priority,
+              createdAt: task.createdAt,
+              updatedAt: task.updatedAt
+            }));
+            this.apolloTasks.set(tasks);
           }
           this.apolloLoading.set(false);
         },
