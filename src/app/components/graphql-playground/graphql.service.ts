@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { DocumentNode } from 'graphql';
 
 /**
  * Service for executing GraphQL queries.
@@ -19,7 +20,7 @@ export class GraphQLService {
    * @param variables - Optional variables for the query
    */
   execute<T = any>(
-    query: string,
+    query: string | DocumentNode,
     variables?: Record<string, any>
   ): Observable<{ data: T; errors?: any[] }> {
     return this.http.post<{ data: T; errors?: any[] }>(this.endpoint, {

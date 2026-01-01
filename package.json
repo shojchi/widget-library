@@ -16,7 +16,9 @@
     "lint:app:fix": "eslint \"./src/**/*.{ts,html}\" --fix",
     "lint:validate": "node scripts/validate-eslint.js",
     "format": "prettier --write \"src/**/*.{ts,html,css,scss,json}\" \"projects/widget-library/**/*.{ts,html,css,scss,json}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,html,css,scss,json}\" \"projects/widget-library/**/*.{ts,html,css,scss,json}\""
+    "format:check": "prettier --check \"src/**/*.{ts,html,css,scss,json}\" \"projects/widget-library/**/*.{ts,html,css,scss,json}\"",
+    "codegen": "graphql-codegen --config codegen.ts",
+    "codegen:watch": "graphql-codegen --config codegen.ts --watch"
   },
   "prettier": {
     "printWidth": 90,
@@ -51,6 +53,8 @@
     "@angular/forms": "^21.0.0",
     "@angular/platform-browser": "^21.0.0",
     "@angular/router": "^21.0.0",
+    "@apollo/client": "^4.0.11",
+    "apollo-angular": "^13.0.0",
     "graphql": "^16.12.0",
     "graphql-request": "^7.4.0",
     "rxjs": "~7.8.0",
@@ -63,6 +67,10 @@
     "@angular/compiler-cli": "^21.0.0",
     "@eslint/config-array": "^0.23.0",
     "@eslint/js": "^9.39.2",
+    "@graphql-codegen/cli": "^6.1.0",
+    "@graphql-codegen/typed-document-node": "^6.1.5",
+    "@graphql-codegen/typescript": "^5.0.7",
+    "@graphql-codegen/typescript-operations": "^5.0.7",
     "@tailwindcss/postcss": "^4.1.12",
     "angular-eslint": "21.1.0",
     "eslint": "^9.39.2",
