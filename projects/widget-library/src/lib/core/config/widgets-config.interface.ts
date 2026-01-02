@@ -1,4 +1,7 @@
 // src/lib/core/config/sdk-config.interface.ts
+
+import { GraphQLFormattedErrorExtensions, SourceLocation } from "graphql";
+
 /**
  * Configuration for WidgetLibrary library
  * @example
@@ -92,9 +95,9 @@ export interface WidgetLibraryConfig {
        */
       onError?: (error: {
         message: string;
-        locations?: any[];
-        path?: string[];
-        extensions?: any;
+        locations?: ReadonlyArray<SourceLocation>;
+        path?: ReadonlyArray<string | number>;
+        extensions?: GraphQLFormattedErrorExtensions;
       }) => void;
 
       /**
