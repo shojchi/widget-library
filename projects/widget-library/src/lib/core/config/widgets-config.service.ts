@@ -11,7 +11,15 @@ const DEFAULT_CONFIG: WidgetLibraryConfig = {
   api: {
     graphqlEndpoint: 'http://localhost:3000/graphql', // Encourage local dev
     timeout: 30000,
-    enableInterceptors: false
+    enableInterceptors: false,
+    apollo: {
+      retryAttempts: 3,
+      retryDelay: 1000,
+      enableCache: true,
+      enableOptimisticUI: true,
+      defaultFetchPolicy: 'cache-first',
+      trackConnectionState: true
+    }
   },
   state: {
     enableDevTools: false,
@@ -91,6 +99,12 @@ function deepMerge<T extends object>(
 export class SdkConfigService {
   private readonly _config: WidgetLibraryConfig;
   private readonly _isDev: boolean;
+  
+  private readonly _minRetryDelay = 1;
+  private readonly _maxRetryDelay = 30000;
+
+  private readonly _minRetryAttempts = 0;
+  private readonly _maxRetryAttempts = 50;
 
   /**
    * Initializes the configuration service
@@ -206,6 +220,18 @@ export class SdkConfigService {
     if (api.timeout && api.timeout < 100) {
       throw new Error(
         `[widget-library] Configuration error: timeout must be at least 100ms, got ${api.timeout}`
+      );
+    }
+
+    if (api.apollo?.retryAttempts !== undefined && (api.apollo.retryAttempts < this._minRetryAttempts || api.apollo.retryAttempts > this._maxRetryAttempts)) {
+      throw new Error(
+        `[widget-library] Configuration error: retryAttempts must be between ${this._minRetryAttempts} and ${this._maxRetryAttempts}, got ${api.apollo.retryAttempts}`
+      );
+    }
+
+    if (api.apollo?.retryDelay !== undefined && (api.apollo.retryDelay < this._minRetryDelay || api.apollo.retryDelay > this._maxRetryDelay)) {
+      throw new Error(
+        `[widget-library] Configuration error: retryDelay must be between ${this._minRetryDelay} and ${this._maxRetryDelay}ms, got ${api.apollo.retryDelay}`
       );
     }
 

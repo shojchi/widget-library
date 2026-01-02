@@ -38,6 +38,78 @@ export interface WidgetLibraryConfig {
      * @default true in development
      */
     enableInterceptors?: boolean;
+
+    /**
+     * Apollo Client specific configuration
+     */
+    apollo?: {
+      /**
+       * Number of retry attempts for failed requests
+       * @default 3
+       */
+      retryAttempts?: number;
+
+      /**
+       * Delay between retry attempts in milliseconds
+       * @default 1000
+       */
+      retryDelay?: number;
+
+      /**
+       * Enable Apollo cache
+       * @default true
+       */
+      enableCache?: boolean;
+
+      /**
+       * Enable optimistic UI updates
+       * Allows UI to update immediately before server confirms
+       * @default true
+       */
+      enableOptimisticUI?: boolean;
+
+      /**
+       * Cache policies for queries
+       * @default 'cache-first'
+       */
+      defaultFetchPolicy?:
+        | 'cache-first'
+        | 'cache-and-network'
+        | 'network-only'
+        | 'no-cache'
+        | 'cache-only';
+
+      /**
+       * Custom HTTP headers to include in all requests
+       * Useful for authentication tokens, API keys, etc.
+       * @example { 'Authorization': 'Bearer token123' }
+       */
+      headers?: Record<string, string>;
+
+      /**
+       * Error callback for handling GraphQL errors
+       * @param error - The GraphQL error object
+       */
+      onError?: (error: {
+        message: string;
+        locations?: any[];
+        path?: string[];
+        extensions?: any;
+      }) => void;
+
+      /**
+       * Network error callback
+       * @param error - The network error object
+       */
+      onNetworkError?: (error: Error) => void;
+
+      /**
+       * Enable connection state tracking
+       * Tracks online/offline status
+       * @default true
+       */
+      trackConnectionState?: boolean;
+    };
   };
 
   /**
