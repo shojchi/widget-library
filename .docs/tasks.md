@@ -7,21 +7,21 @@ done:
    ✅ Configure TypeScript strict mode and library build settings
    ✅ Set up development tools (ESLint, Prettier, Angular DevKit)
    ✅ Create basic project structure with public API exports
-  - _Requirements: 1.1, 1.2, 1.3_
+  ✅ _Requirements: 1.1, 1.2, 1.3_
 
 - [ ] 2. Set up mock GraphQL backend for development
    ✅ Install and configure MSW (Mock Service Worker) or json-graphql-server
    ✅ Define GraphQL schema for Task entity with queries and mutations
    ✅ Create mock data and resolvers for task operations
    ✅ Set up GraphQL playground for testing queries
-  - _Requirements: 2.1_
+  ✅ _Requirements: 2.1_
 
 - [ ] 3. Install and configure Apollo GraphQL client
    ✅ Add Apollo Angular dependencies to the library
    ✅ Configure Apollo client with mock GraphQL endpoint
    ✅ Set up GraphQL code generation for TypeScript types
-   - Create base GraphQL service with connection handling
-   - _Requirements: 2.1, 2.2, 6.2_
+   ✅ Create base GraphQL service with connection handling
+  ✅ _Requirements: 2.1, 2.2, 6.2_
 
 - [ ]* 3.1 Write property test for GraphQL query execution
    - **Property 2: GraphQL query execution**
