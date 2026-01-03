@@ -1,6 +1,6 @@
 // src/lib/core/config/sdk-config.interface.ts
 
-import { GraphQLFormattedErrorExtensions, SourceLocation } from "graphql";
+import { GraphQLFormattedErrorExtensions, SourceLocation } from 'graphql';
 
 /**
  * Configuration for WidgetLibrary library
@@ -80,7 +80,8 @@ export interface WidgetLibraryConfig {
         | 'cache-and-network'
         | 'network-only'
         | 'no-cache'
-        | 'cache-only';
+        | 'cache-only'
+        | 'standby';
 
       /**
        * Custom HTTP headers to include in all requests
@@ -90,8 +91,12 @@ export interface WidgetLibraryConfig {
       headers?: Record<string, string>;
 
       /**
-       * Error callback for handling GraphQL errors
+       * Optional callback for handling GraphQL errors
+       * This is called IN ADDITION to the built-in ErrorLink logging
+       * Use this to add custom behavior like analytics tracking
        * @param error - The GraphQL error object
+       * @example
+       * onError: (error) => analytics.trackError(error)
        */
       onError?: (error: {
         message: string;
@@ -101,8 +106,12 @@ export interface WidgetLibraryConfig {
       }) => void;
 
       /**
-       * Network error callback
+       * Optional callback for network errors
+       * This is called IN ADDITION to the built-in ErrorLink logging
+       * Use this to add custom behavior like showing notifications
        * @param error - The network error object
+       * @example
+       * onNetworkError: (error) => toast.error('Network issue!')
        */
       onNetworkError?: (error: Error) => void;
 
