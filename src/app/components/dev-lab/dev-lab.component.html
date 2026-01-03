@@ -10,6 +10,52 @@
     </div>
   </header>
 
+    <!-- NgRx Store Testing Section -->
+  <div class="ngrx-testing-section">
+    <div class="section-header">
+      <h2>🧪 NgRx Store Testing</h2>
+      <p>Test the Task Store (Actions → Effects → State)</p>
+    </div>
+    
+    <div class="ngrx-actions">
+      <button class="action-btn primary" (click)="loadTasksFromStore()">
+        📥 Load Tasks (via Store)
+      </button>
+      <button class="action-btn success" (click)="createTaskViaStore()">
+        ➕ Create Task (via Store)
+      </button>
+    </div>
+
+    <div class="ngrx-state">
+      <div class="state-card">
+        <h3>📊 Store State</h3>
+        <div class="state-info">
+          <p><strong>Loading:</strong> {{ (ngrxLoading$ | async) || false }}</p>
+          <p><strong>Error:</strong> {{ (ngrxError$ | async) || 'None' }}</p>
+          <p><strong>Tasks Count:</strong> {{ (tasks$ | async)?.length || 0 }}</p>
+        </div>
+      </div>
+
+      <div class="state-card">
+        <h3>📋 Tasks from Store</h3>
+        @if (tasks$ | async; as tasks) {
+          @if (tasks.length === 0) {
+            <p class="empty-text">No tasks yet. Click "Load Tasks" to fetch!</p>
+          } @else {
+            <ul class="tasks-list">
+              @for (task of tasks; track task.id) {
+                <li class="task-item">
+                  <strong>{{ task.title }}</strong>
+                  <span class="task-status">{{ task.status }}</span>
+                </li>
+              }
+            </ul>
+          }
+        }
+      </div>
+    </div>
+  </div>
+
   <!-- Main Content -->
   <div class="playground-content">
     <!-- Left Panel: Query Editor -->
