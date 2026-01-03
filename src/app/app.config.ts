@@ -1,6 +1,9 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+
+import { provideStore } from '@ngrx/store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
 import { provideApolloClient, WIDGET_LIBRARY_CONFIG } from 'widget-library';
@@ -18,6 +21,13 @@ export const appConfig: ApplicationConfig = {
         }
       }
     },
-    provideApolloClient()
+    provideApolloClient(),
+    provideStore({}),
+    provideStoreDevtools({
+      maxAge: 25,
+      autoPause: true,
+      trace: true,
+      traceLimit: 25,
+    })
   ]
 };

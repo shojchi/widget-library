@@ -2,6 +2,13 @@ import { Component, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GraphQLService } from './graphql.service';
+import { Store } from '@ngrx/store';
+import {
+  selectAllTasks,
+  selectTasksLoading,
+  selectTasksError
+} from '@lib/features/task/store/task.selectors';
+import { TaskActions } from '@lib/features/task/store/task.actions';
 
 /**
  * GraphQL Playground Component
@@ -10,13 +17,14 @@ import { GraphQLService } from './graphql.service';
  * This helps you explore the mock GraphQL API before integrating it into widgets.
  */
 @Component({
-  selector: 'app-graphql-playground',
+  selector: 'app-dev-lab',
   imports: [CommonModule, FormsModule],
-  templateUrl: './graphql-playground.component.html',
-  styleUrl: './graphql-playground.component.css'
+  templateUrl: './dev-lab.component.html',
+  styleUrl: './dev-lab.component.css'
 })
-export class GraphQLPlaygroundComponent {
+export class DevLabComponent {
   private readonly graphqlService = inject(GraphQLService);
+  private readonly store = inject(Store);
 
   /**
    * Example queries to help users get started
@@ -82,6 +90,10 @@ export class GraphQLPlaygroundComponent {
   result = signal<any>(null);
   loading = signal<boolean>(false);
   error = signal<string | null>(null);
+  // NgRx Store signals
+  tasks$ = this.store.select(selectAllTasks); // Observable
+  ngrxLoading$ = this.store.select(selectTasksLoading);
+  ngrxError$ = this.store.select(selectTasksError);
 
   /**
    * Execute the current query
@@ -137,5 +149,23 @@ export class GraphQLPlaygroundComponent {
    */
   formatJson(obj: any): string {
     return JSON.stringify(obj, null, 2);
+  }
+
+  // NgRx Store Actions
+  loadTasksFromStore(): void {
+    this.store.dispatch(TaskActions.loadTasks());
+  }
+
+  createTaskViaStore(): void {
+    this.store.dispatch(
+      TaskActions.createTask({
+        task: {
+          title: 'Task from NgRx',
+          description: 'Created via store',
+          status: 'TODO',
+          priority: 'HIGH'
+        }
+      })
+    );
   }
 }
