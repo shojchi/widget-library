@@ -1,4 +1,7 @@
 // src/lib/core/config/sdk-config.interface.ts
+
+import { GraphQLFormattedErrorExtensions, SourceLocation } from 'graphql';
+
 /**
  * Configuration for WidgetLibrary library
  * @example
@@ -38,6 +41,87 @@ export interface WidgetLibraryConfig {
      * @default true in development
      */
     enableInterceptors?: boolean;
+
+    /**
+     * Apollo Client specific configuration
+     */
+    apollo?: {
+      /**
+       * Number of retry attempts for failed requests
+       * @default 3
+       */
+      retryAttempts?: number;
+
+      /**
+       * Delay between retry attempts in milliseconds
+       * @default 1000
+       */
+      retryDelay?: number;
+
+      /**
+       * Enable Apollo cache
+       * @default true
+       */
+      enableCache?: boolean;
+
+      /**
+       * Enable optimistic UI updates
+       * Allows UI to update immediately before server confirms
+       * @default true
+       */
+      enableOptimisticUI?: boolean;
+
+      /**
+       * Cache policies for queries
+       * @default 'cache-first'
+       */
+      defaultFetchPolicy?:
+        | 'cache-first'
+        | 'cache-and-network'
+        | 'network-only'
+        | 'no-cache'
+        | 'cache-only'
+        | 'standby';
+
+      /**
+       * Custom HTTP headers to include in all requests
+       * Useful for authentication tokens, API keys, etc.
+       * @example { 'Authorization': 'Bearer token123' }
+       */
+      headers?: Record<string, string>;
+
+      /**
+       * Optional callback for handling GraphQL errors
+       * This is called IN ADDITION to the built-in ErrorLink logging
+       * Use this to add custom behavior like analytics tracking
+       * @param error - The GraphQL error object
+       * @example
+       * onError: (error) => analytics.trackError(error)
+       */
+      onError?: (error: {
+        message: string;
+        locations?: ReadonlyArray<SourceLocation>;
+        path?: ReadonlyArray<string | number>;
+        extensions?: GraphQLFormattedErrorExtensions;
+      }) => void;
+
+      /**
+       * Optional callback for network errors
+       * This is called IN ADDITION to the built-in ErrorLink logging
+       * Use this to add custom behavior like showing notifications
+       * @param error - The network error object
+       * @example
+       * onNetworkError: (error) => toast.error('Network issue!')
+       */
+      onNetworkError?: (error: Error) => void;
+
+      /**
+       * Enable connection state tracking
+       * Tracks online/offline status
+       * @default true
+       */
+      trackConnectionState?: boolean;
+    };
   };
 
   /**
