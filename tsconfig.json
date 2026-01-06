@@ -15,7 +15,8 @@
     "target": "ES2022",
     "module": "preserve",
     "paths": {
-      "widget-library": ["./projects/widget-library/src/public-api.ts"]
+      "widget-library": ["./projects/widget-library/src/public-api.ts"],
+      "@lib/*": ["./projects/widget-library/src/lib/*"]
     }
   },
   "angularCompilerOptions": {
