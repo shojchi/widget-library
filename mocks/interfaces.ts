@@ -1,20 +1,12 @@
-import { TaskStatus, TaskPriority } from '../src/generated/graphql';
+export type {
+  TaskData,
+  Task,
+  TaskStatus,
+  TaskPriority
+} from '../projects/widget-library/src/lib/features/task/models/task.model';
+import type { Task } from '../projects/widget-library/src/lib/features/task/models/task.model';
 
-export interface TaskData {
-  id: string;
-  title: string;
-  description?: string;
-  status: TaskStatus;
-  priority: TaskPriority;
-  createdAt: string;
-  updatedAt: string;
-  assignedTo?: string; // Store user ID
-}
-
-export interface Task extends Omit<TaskData, 'assignedTo'> {
-  assignedTo?: User; // Reference to User (with empty tasks array)
-}
-
+// User types remain here for now (not part of the library yet)
 // Storage layer (what mockUsers contains)
 export interface UserData {
   id: string;

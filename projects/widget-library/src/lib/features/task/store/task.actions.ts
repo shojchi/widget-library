@@ -1,4 +1,4 @@
-import { TaskData } from '../../../../../../../mocks/interfaces';
+import { TaskData } from '../models/task.model';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const TaskActions = createActionGroup({

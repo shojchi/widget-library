@@ -1,4 +1,8 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, isDevMode } from '@angular/core';
+import {
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  isDevMode
+} from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -23,11 +27,15 @@ export const appConfig: ApplicationConfig = {
     },
     provideApolloClient(),
     provideStore({}),
-    provideStoreDevtools({
-      maxAge: 25,
-      autoPause: true,
-      trace: true,
-      traceLimit: 25,
-    })
+    ...(isDevMode()
+      ? [
+          provideStoreDevtools({
+            maxAge: 25,
+            autoPause: true,
+            trace: true,
+            traceLimit: 25
+          })
+        ]
+      : [])
   ]
 };

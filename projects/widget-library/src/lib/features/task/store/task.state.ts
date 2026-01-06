@@ -1,4 +1,4 @@
-import { TaskData } from "../../../../../../../mocks/interfaces";
+import { TaskData } from '../models/task.model';
 
 export interface TaskState {
   tasks: TaskData[];
@@ -8,8 +8,8 @@ export interface TaskState {
 }
 
 export const initialState: TaskState = {
-    tasks: [],
-    loading: false,
-    error: null,
-    selectedTask: null
-}
+  tasks: [],
+  loading: false,
+  error: null,
+  selectedTask: null
+};

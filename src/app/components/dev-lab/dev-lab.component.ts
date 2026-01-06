@@ -9,9 +9,10 @@ import {
   selectTasksError
 } from '@lib/features/task/store/task.selectors';
 import { TaskActions } from '@lib/features/task/store/task.actions';
+import { TaskStatus, TaskPriority } from '@lib/features/task/models/task.model';
 
 /**
- * GraphQL Playground Component
+ * Development Lab Component
  *
  * A visual interface for testing GraphQL queries and mutations.
  * This helps you explore the mock GraphQL API before integrating it into widgets.
@@ -162,8 +163,8 @@ export class DevLabComponent {
         task: {
           title: 'Task from NgRx',
           description: 'Created via store',
-          status: 'TODO',
-          priority: 'HIGH'
+          status: TaskStatus.TODO,
+          priority: TaskPriority.HIGH
         }
       })
     );
