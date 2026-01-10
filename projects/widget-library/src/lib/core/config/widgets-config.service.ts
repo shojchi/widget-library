@@ -1,14 +1,25 @@
 // src/lib/core/config/sdk-config.service.ts
 import { Injectable, inject } from '@angular/core';
 import { WIDGET_LIBRARY_CONFIG } from './widgets-config.token';
-import { WidgetLibraryConfig, PartialWidgetLibraryConfig } from './widgets-config.interface';
+import {
+  WidgetLibraryConfig,
+  PartialWidgetLibraryConfig
+} from './widgets-config.interface';
 
 // Default configuration - production safe
 const DEFAULT_CONFIG: WidgetLibraryConfig = {
   api: {
     graphqlEndpoint: 'http://localhost:3000/graphql', // Encourage local dev
     timeout: 30000,
-    enableInterceptors: false
+    enableInterceptors: false,
+    apollo: {
+      retryAttempts: 3,
+      retryDelay: 1000,
+      enableCache: true,
+      enableOptimisticUI: true,
+      defaultFetchPolicy: 'cache-first',
+      trackConnectionState: true
+    }
   },
   state: {
     enableDevTools: false,
@@ -41,15 +52,19 @@ interface WindowWithNgDevMode extends Window {
 // Check if we're in development mode
 const isDevMode = (): boolean => {
   try {
-    return typeof window !== 'undefined' &&
-      (window as WindowWithNgDevMode).ngDevMode !== false;
+    return (
+      typeof window !== 'undefined' && (window as WindowWithNgDevMode).ngDevMode !== false
+    );
   } catch {
     return false;
   }
 };
 
 // Deep merge utility - accepts deep partial types
-function deepMerge<T extends object>(target: T, source: Partial<T> | { [K in keyof T]?: Partial<T[K]> }): T {
+function deepMerge<T extends object>(
+  target: T,
+  source: Partial<T> | { [K in keyof T]?: Partial<T[K]> }
+): T {
   const result = { ...target } as T;
 
   for (const key in source) {
@@ -75,13 +90,25 @@ function deepMerge<T extends object>(target: T, source: Partial<T> | { [K in key
   return result;
 }
 
+/**
+ * Service responsible for managing global SDK configuration
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class SdkConfigService {
   private readonly _config: WidgetLibraryConfig;
   private readonly _isDev: boolean;
+  
+  private readonly _minRetryDelay = 1;
+  private readonly _maxRetryDelay = 30000;
 
+  private readonly _minRetryAttempts = 0;
+  private readonly _maxRetryAttempts = 50;
+
+  /**
+   * Initializes the configuration service
+   */
   constructor() {
     // Inject config with optional flag - might not be available yet
     const userConfig = inject(WIDGET_LIBRARY_CONFIG, { optional: true });
@@ -100,7 +127,7 @@ export class SdkConfigService {
 
     // Log initialization if enabled
     if (this._config.logging?.console && this._config.logging.level === 'debug') {
-      console.debug('MySdk initialized with config:', this._config);
+      console.debug('library-widget initialized with config:', this._config);
     }
   }
 
@@ -114,7 +141,9 @@ export class SdkConfigService {
   /**
    * Get a specific configuration section
    */
-  getSection<T extends keyof WidgetLibraryConfig>(section: T): Readonly<WidgetLibraryConfig[T]> {
+  getSection<T extends keyof WidgetLibraryConfig>(
+    section: T
+  ): Readonly<WidgetLibraryConfig[T]> {
     return this._config[section];
   }
 
@@ -134,7 +163,7 @@ export class SdkConfigService {
     Object.assign(this._config, newConfig);
 
     if (this._config.logging?.console) {
-      console.info('MySdk configuration updated:', updates);
+      console.info('widget-library configuration updated:', updates);
     }
   }
 
@@ -173,7 +202,9 @@ export class SdkConfigService {
 
     // Validate required fields
     if (!api.graphqlEndpoint?.trim()) {
-      throw new Error('[MySdk] Configuration error: graphqlEndpoint is required');
+      throw new Error(
+        '[widget-library] Configuration error: graphqlEndpoint is required'
+      );
     }
 
     // Validate URL format
@@ -181,14 +212,26 @@ export class SdkConfigService {
       new URL(api.graphqlEndpoint);
     } catch {
       throw new Error(
-        `[MySdk] Configuration error: Invalid graphqlEndpoint URL: ${api.graphqlEndpoint}`
+        `[widget-library] Configuration error: Invalid graphqlEndpoint URL: ${api.graphqlEndpoint}`
       );
     }
 
     // Validate timeout
     if (api.timeout && api.timeout < 100) {
       throw new Error(
-        `[MySdk] Configuration error: timeout must be at least 100ms, got ${api.timeout}`
+        `[widget-library] Configuration error: timeout must be at least 100ms, got ${api.timeout}`
+      );
+    }
+
+    if (api.apollo?.retryAttempts !== undefined && (api.apollo.retryAttempts < this._minRetryAttempts || api.apollo.retryAttempts > this._maxRetryAttempts)) {
+      throw new Error(
+        `[widget-library] Configuration error: retryAttempts must be between ${this._minRetryAttempts} and ${this._maxRetryAttempts}, got ${api.apollo.retryAttempts}`
+      );
+    }
+
+    if (api.apollo?.retryDelay !== undefined && (api.apollo.retryDelay < this._minRetryDelay || api.apollo.retryDelay > this._maxRetryDelay)) {
+      throw new Error(
+        `[widget-library] Configuration error: retryDelay must be between ${this._minRetryDelay} and ${this._maxRetryDelay}ms, got ${api.apollo.retryDelay}`
       );
     }
 
@@ -196,7 +239,7 @@ export class SdkConfigService {
     const validThemes = ['light', 'dark', 'system'];
     if (ui?.theme && !validThemes.includes(ui.theme)) {
       throw new Error(
-        `[MySdk] Configuration error: Invalid theme "${ui.theme}". Must be one of: ${validThemes.join(', ')}`
+        `[widget-library] Configuration error: Invalid theme "${ui.theme}". Must be one of: ${validThemes.join(', ')}`
       );
     }
 
@@ -204,7 +247,7 @@ export class SdkConfigService {
     const validLevels = ['debug', 'info', 'warn', 'error', 'off'];
     if (logging?.level && !validLevels.includes(logging.level)) {
       throw new Error(
-        `[MySdk] Configuration error: Invalid log level "${logging.level}". Must be one of: ${validLevels.join(', ')}`
+        `[widget-library] Configuration error: Invalid log level "${logging.level}". Must be one of: ${validLevels.join(', ')}`
       );
     }
   }

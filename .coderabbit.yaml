@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: 'en-US'
+tone_instructions: |
+  This is a pet project for learning purposes.
+  Please focus on:
+  1. Code readability and maintainability
+  2. Best practices for beginners
+  3. Explanations that help me learn
+  4. Security basics
+  Be encouraging and educational in feedback!
+enable_free-tier: true
+reviews:
+  profile: 'chill'
+  request_changes_workflow: false
+  high_level_summary: true
+  auto_approve_workflow: false
+  auto_title_instructions: 'First is type of commit: (Feat/Chore/Fix/Ref/Docs/Test). After that : and summary commit text'
+  poem: true
+  review_status: true
+  collapse_walkthrough: false
+  summary:
+    enabled: true
+    publish_as: 'comment'
+  auto_review:
+    enabled: true
+    drafts: false
+  path_filters:
+    - '!dist/**'
+    - '!node_modules/**'
+    - '!build/**'
+    - '!*.min.js'
+    - '!*.log'
+    - '!.ai/**'
+    - '!.angular/**'
+    - '!.vscode/**'
+    - '!.github/**'
+    - '!.docs/**'
+chat:
+  auto_reply: true
