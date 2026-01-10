@@ -8,7 +8,7 @@ tone_instructions: |
   3. Explanations that help me learn
   4. Security basics
   Be encouraging and educational in feedback!
-enable_free-tier: true
+enable_free_tier: true
 reviews:
   profile: 'chill'
   request_changes_workflow: false
