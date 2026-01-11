@@ -10,6 +10,17 @@ import {
 } from '@lib/features/task/store/task.selectors';
 import { TaskActions } from '@lib/features/task/store/task.actions';
 import { TaskStatus, TaskPriority } from '@lib/features/task/models/task.model';
+import {
+  ThemeActions,
+  selectResolvedTheme,
+  selectThemePreference,
+  selectIsDarkMode,
+  selectBreakpoint,
+  selectDeviceType,
+  selectIsTablet,
+  selectIsMobile,
+  selectIsDesktop
+} from 'widget-library';
 
 /**
  * Development Lab Component
@@ -96,6 +107,18 @@ export class DevLabComponent {
   ngrxLoading$ = this.store.select(selectTasksLoading);
   ngrxError$ = this.store.select(selectTasksError);
 
+  // Theme Store selectors
+  theme$ = this.store.select(selectResolvedTheme);
+  preference$ = this.store.select(selectThemePreference);
+  isDarkMode$ = this.store.select(selectIsDarkMode);
+
+  // Viewport Store selectors
+  breakpoint$ = this.store.select(selectBreakpoint);
+  deviceType$ = this.store.select(selectDeviceType);
+  isMobile$ = this.store.select(selectIsMobile);
+  isTablet$ = this.store.select(selectIsTablet);
+  isDesktop$ = this.store.select(selectIsDesktop);
+
   /**
    * Execute the current query
    */
@@ -168,5 +191,22 @@ export class DevLabComponent {
         }
       })
     );
+  }
+
+  // Theme Store Actions
+  setLight(): void {
+    this.store.dispatch(ThemeActions.setPreference({ preference: 'light' }));
+  }
+
+  setDark(): void {
+    this.store.dispatch(ThemeActions.setPreference({ preference: 'dark' }));
+  }
+
+  setSystem(): void {
+    this.store.dispatch(ThemeActions.setPreference({ preference: 'system' }));
+  }
+
+  simulateSystemChange(systemTheme: 'light' | 'dark'): void {
+    this.store.dispatch(ThemeActions.systemPreferenceChanged({ systemTheme }));
   }
 }
