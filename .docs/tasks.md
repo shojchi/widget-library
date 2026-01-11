@@ -40,22 +40,22 @@
   **Purpose:** Set up root NgRx store with infrastructure-only state (theme, viewport, notifications, etc.)
 
   **See:** `.docs/ngrx-architecture.md` for complete design
-  - [ ] 4.1 Install NgRx dependencies and configure root store
-    - Install @ngrx/store, @ngrx/effects, @ngrx/store-devtools
-    - Configure `provideStore()` in app.config.ts
-    - Set up Redux DevTools
-    - _Learn: Root store setup, app.config.ts providers_
-  - [ ] 4.2 Implement Theme state
-    - Create theme.actions.ts, theme.reducer.ts, theme.selectors.ts
-    - State: preference ('light' | 'dark' | 'system'), resolved ('light' | 'dark')
-    - Actions: setPreference, systemPreferenceChanged, resolvedThemeUpdated
-    - _Learn: Feature state slices, preference vs resolved values_
-  - [ ] 4.3 Implement Viewport state
-    - Create viewport.actions.ts, viewport.reducer.ts, viewport.selectors.ts
-    - State: breakpoint, width, height, isMobile, isTablet, isDesktop
-    - Actions: resize, breakpointChanged
-    - Add window resize listener
-    - _Learn: Responsive state management, Tailwind breakpoints_
+  - [✅] 4.1 Install NgRx dependencies and configure root store
+    ✅ Install @ngrx/store, @ngrx/effects, @ngrx/store-devtools
+    ✅ Configure `provideStore()` in app.config.ts
+    ✅ Set up Redux DevTools
+    ✅ _Learn: Root store setup, app.config.ts providers_
+  - [✅] 4.2 Implement Theme state
+    ✅ Create theme.actions.ts, theme.reducer.ts, theme.selectors.ts
+    ✅ State: preference ('light' | 'dark' | 'system'), resolved ('light' | 'dark')
+    ✅ Actions: setPreference, systemPreferenceChanged, resolvedThemeUpdated
+    ✅ _Learn: Feature state slices, preference vs resolved values_
+  - [✅] 4.3 Implement Viewport state
+    ✅ Create viewport.actions.ts, viewport.reducer.ts, viewport.selectors.ts
+    ✅ State: breakpoint, deviceType
+    ✅ Actions: breakpointChanged, deviceTypeChanged
+    ✅ Add window resize listener with debounce
+    ✅ _Learn: Responsive state management, Tailwind breakpoints, RxJS debouncing_
   - [ ] 4.4 Implement Widget Registry state
     - Create widget-registry.actions.ts, .reducer.ts, .selectors.ts
     - State: widgets Record<id, WidgetInfo>
