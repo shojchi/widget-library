@@ -36,7 +36,3 @@ This directory serves as the **single source of truth** for:
 - **AI Instructions**: `.ai/AGENT_INSTRUCTIONS.md` (read first)
 - **Context Index**: `.ai/CONTEXT_INDEX.md` (file reference guide)
 - **Agent Rules**: `.ai/` directory (all AI configuration)
-
----
-
-**Note**: This directory was previously `.kiro/specs/angular-widget-library/` but has been renamed to `.docs/` for clarity and to remove tool-specific references.
