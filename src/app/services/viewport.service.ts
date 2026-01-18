@@ -1,13 +1,15 @@
-import { inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { debounceTime, fromEvent, map } from 'rxjs';
 import { Breakpoint, DeviceType, ViewportActions } from 'widget-library';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ViewportService {
   private store = inject(Store);
+  private destroyRef = inject(DestroyRef);
 
   public initializeViewportListener(): void {
     this.updateViewport(window.innerWidth);
@@ -15,7 +17,8 @@ export class ViewportService {
     fromEvent(window, 'resize')
       .pipe(
         debounceTime(300),
-        map(() => window.innerWidth)
+        map(() => window.innerWidth),
+        takeUntilDestroyed(this.destroyRef)
       )
       .subscribe(width => this.updateViewport(width));
   }
