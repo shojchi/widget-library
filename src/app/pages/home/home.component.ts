@@ -1,13 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AsyncPipe } from '@angular/common';
-import {
-  WidgetLibrary,
-  ThemeActions,
-  selectResolvedTheme,
-  selectThemePreference,
-  selectIsDarkMode
-} from 'widget-library';
+import { Component } from '@angular/core';
+import { WidgetLibrary } from 'widget-library';
 
 @Component({
   selector: 'app-home',
@@ -15,5 +7,4 @@ import {
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
-}
+export class HomeComponent {}
