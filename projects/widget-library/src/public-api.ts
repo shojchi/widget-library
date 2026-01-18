@@ -15,6 +15,7 @@ export { WIDGET_LIBRARY_CONFIG } from './lib/core/config/widgets-config.token';
 // NgRx Store - Global Infrastructure State
 export * from './lib/core/store/theme';
 export * from './lib/core/store/viewport';
+export * from './lib/core/store/widget-registry';
 
 // Core Components
 export * from './lib/widget-library';

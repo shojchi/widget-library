@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { distinctUntilChanged, fromEvent, map } from 'rxjs';
-import { ResolvedTheme, ThemeActions } from 'widget-library';
+import { ResolvedTheme, selectResolvedTheme, ThemeActions } from 'widget-library';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,19 @@ export class ThemeService {
       )
       .subscribe(systemTheme => {
         this.store.dispatch(ThemeActions.systemPreferenceChanged({ systemTheme }));
+      });
+
+    this.store
+      .select(selectResolvedTheme)
+      .pipe(distinctUntilChanged())
+      .subscribe(theme => {
+        if (theme === 'dark') {
+          document.documentElement.classList.remove('light');
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.add('light');
+        }
       });
   }
 

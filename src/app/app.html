@@ -1,8 +1,8 @@
-<nav class="app-nav">
+<nav class="bg-surface border-b border-border">
   <div class="nav-container">
     <a routerLink="/" class="nav-brand">
       <span class="brand-icon">🎨</span>
-      <span class="brand-text">Widget Library</span>
+      <span class="brand-text text-foreground">Widget Library</span>
     </a>
 
     <div class="nav-links">
@@ -10,17 +10,22 @@
         routerLink="/"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
-        class="nav-link"
+        class="nav-link text-foreground hover:text-primary"
       >
         <span class="link-icon">🌍</span>
-        Widgets Showcase (Real Emulation)
+        <span> Widgets Showcase (Real Emulation) </span>
       </a>
-      <a routerLink="/dev" routerLinkActive="active" class="nav-link">
+      <a
+        routerLink="/dev"
+        routerLinkActive="active"
+        class="nav-link text-foreground hover:text-primary"
+      >
         <span class="link-icon">🧰</span>
         Dev Lab (Development Tools)
       </a>
+      <!-- Theme button now uses your custom primary color! -->
       <button
-        class="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold text-sm rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+        class="flex items-center gap-2 px-4 py-2.5 bg-primary hover:bg-primary-hover text-white font-semibold text-sm rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
         (click)="changeTheme()"
       >
         @switch (themePreference()) {
@@ -43,6 +48,6 @@
   </div>
 </nav>
 
-<main class="app-main">
+<main class="app-main bg-background">
   <router-outlet />
 </main>

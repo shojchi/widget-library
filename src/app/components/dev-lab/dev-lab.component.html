@@ -10,7 +10,6 @@
     </div>
   </header>
 
-  <!-- NgRx Store Testing Section -->
   <section class="ngrx-testing-section">
     <div class="section-header">
       <h2>🧪 NgRx Store Testing</h2>
@@ -56,8 +55,7 @@
     </div>
   </section>
 
-  <!-- Theme Testing Section -->
-  <section class="theme-test-section m-8">
+  <section class="theme-test-section">
     <div class="section-header">
       <h2>🎨 Theme Store Test</h2>
       <p>Test NgRx theme state management</p>
@@ -89,18 +87,15 @@
     </div>
   </section>
 
-  <!-- Viewport Testing Section -->
-  <section class="bg-white rounded-lg p-6 m-8 shadow-lg">
+  <section class="theme-test-section bg-surface rounded-lg p-6 my-8 shadow-lg">
     <div class="text-center mb-4 pb-4 border-b-2 border-gray-200">
-      <h2 class="font-bold text-2xl text-gray-800 mb-2">📐 Viewport Store Test</h2>
-      <p class="text-gray-500 text-md">
-        Resize your browser to see viewport state changes
-      </p>
+      <h2 class="font-bold text-2xl text-primary mb-2">📐 Viewport Store Test</h2>
+      <p class="text-md">Resize your browser to see viewport state changes</p>
     </div>
 
     <div class="grid grid-cols-1 gap-6">
-      <div class="bg-gray-50 rounded-lg p-5 border border-gray-200">
-        <h3 class="text-lg font-semibold text-purple-600 mb-4">Current State:</h3>
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Current State:</h3>
         <ul class="space-y-3 grid grid-cols-3">
           <li><strong>Breakpoint:</strong> {{ breakpoint$ | async }}</li>
           <li><strong>Device Type:</strong> {{ deviceType$ | async }}</li>
@@ -112,9 +107,7 @@
     </div>
   </section>
 
-  <!-- Main Content -->
   <section class="playground-content">
-    <!-- Left Panel: Query Editor -->
     <div class="editor-panel">
       <div class="panel-header">
         <h2>Query Editor</h2>
@@ -128,7 +121,6 @@
         </button>
       </div>
 
-      <!-- Example Queries -->
       <div class="examples">
         <label class="examples-label">Examples:</label>
         <div class="examples-buttons">
@@ -140,7 +132,6 @@
         </div>
       </div>
 
-      <!-- Query Textarea -->
       <div class="editor-section">
         <label class="editor-label">Query / Mutation</label>
         <textarea
@@ -152,7 +143,6 @@
         ></textarea>
       </div>
 
-      <!-- Variables Textarea -->
       <div class="editor-section">
         <label class="editor-label">Variables (JSON)</label>
         <textarea
@@ -165,7 +155,6 @@
       </div>
     </div>
 
-    <!-- Right Panel: Results -->
     <div class="results-panel">
       <div class="panel-header">
         <h2>Response</h2>

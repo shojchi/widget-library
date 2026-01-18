@@ -16,7 +16,8 @@ import {
   provideApolloClient,
   WIDGET_LIBRARY_CONFIG,
   themeReducer,
-  viewportReducer
+  viewportReducer,
+  widgetRegistryReducer
 } from 'widget-library';
 import { ViewportService } from './services/viewport.service';
 import { ThemeService } from './services/theme.service';
@@ -37,7 +38,8 @@ export const appConfig: ApplicationConfig = {
     provideApolloClient(),
     provideStore({
       theme: themeReducer,
-      viewport: viewportReducer
+      viewport: viewportReducer,
+      widgetRegistry: widgetRegistryReducer
     }),
     provideAppInitializer(() => {
       const viewportService = inject(ViewportService);
