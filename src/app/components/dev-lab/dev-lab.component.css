@@ -573,11 +573,11 @@
 
 .hint {
   font-size: 0.875rem;
-  color: var(--color-muted);
+  color: var(--color-foreground);
   font-style: italic;
   margin: 1rem 0 0 0;
   padding: 0.75rem;
-  background: #fff3cd;
+  background: var(--color-secondary);
   border-radius: 0.375rem;
-  border-left: 3px solid #ffc107;
+  border-left: 3px solid var(--color-primary);
 }
