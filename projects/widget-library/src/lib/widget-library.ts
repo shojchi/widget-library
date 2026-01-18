@@ -10,8 +10,10 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
   imports: [],
   template: `
     <div class="wdg-widget-library">
-      <h2>{{ title() }}</h2>
-      <p>Widget Library initialized with {{ widgetCount() }} widgets</p>
+      <h2 class="text-primary">{{ title() }}</h2>
+      <p class="text-primary">
+        Widget Library initialized with {{ widgetCount() }} widgets
+      </p>
       <div class="wdg-status">Status: {{ isReady() ? 'Ready' : 'Initializing...' }}</div>
     </div>
   `,
