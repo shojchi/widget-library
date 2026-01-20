@@ -16,6 +16,7 @@ export { WIDGET_LIBRARY_CONFIG } from './lib/core/config/widgets-config.token';
 export * from './lib/core/store/theme';
 export * from './lib/core/store/viewport';
 export * from './lib/core/store/widget-registry';
+export * from './lib/core/store/app-metadata';
 
 // Core Components
 export * from './lib/widget-library';

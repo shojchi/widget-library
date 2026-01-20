@@ -17,7 +17,8 @@ import {
   WIDGET_LIBRARY_CONFIG,
   themeReducer,
   viewportReducer,
-  widgetRegistryReducer
+  widgetRegistryReducer,
+  appMetadataReducer
 } from 'widget-library';
 import { ViewportService } from './services/viewport.service';
 import { ThemeService } from './services/theme.service';
@@ -39,7 +40,8 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       theme: themeReducer,
       viewport: viewportReducer,
-      widgetRegistry: widgetRegistryReducer
+      widgetRegistry: widgetRegistryReducer,
+      appMetadata: appMetadataReducer
     }),
     provideAppInitializer(() => {
       const viewportService = inject(ViewportService);

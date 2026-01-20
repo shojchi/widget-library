@@ -19,6 +19,7 @@
       "@lib/*": ["./projects/widget-library/src/lib/*"]
     }
   },
+  "resolveJsonModule": true,
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
