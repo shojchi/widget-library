@@ -17,9 +17,9 @@
     "paths": {
       "widget-library": ["./projects/widget-library/src/public-api.ts"],
       "@lib/*": ["./projects/widget-library/src/lib/*"]
-    }
+    },
+    "resolveJsonModule": true
   },
-  "resolveJsonModule": true,
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
