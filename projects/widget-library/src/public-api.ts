@@ -17,6 +17,7 @@ export * from './lib/core/store/theme';
 export * from './lib/core/store/viewport';
 export * from './lib/core/store/widget-registry';
 export * from './lib/core/store/app-metadata';
+export * from './lib/core/store/notifications';
 
 // Core Components
 export * from './lib/widget-library';
