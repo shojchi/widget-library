@@ -40,39 +40,55 @@
   **Purpose:** Set up root NgRx store with infrastructure-only state (theme, viewport, notifications, etc.)
 
   **See:** `.docs/ngrx-architecture.md` for complete design
-  - [ ] 4.1 Install NgRx dependencies and configure root store
-    - Install @ngrx/store, @ngrx/effects, @ngrx/store-devtools
-    - Configure `provideStore()` in app.config.ts
-    - Set up Redux DevTools
-    - _Learn: Root store setup, app.config.ts providers_
-  - [ ] 4.2 Implement Theme state
-    - Create theme.actions.ts, theme.reducer.ts, theme.selectors.ts
-    - State: preference ('light' | 'dark' | 'system'), resolved ('light' | 'dark')
-    - Actions: setPreference, systemPreferenceChanged, resolvedThemeUpdated
-    - _Learn: Feature state slices, preference vs resolved values_
-  - [ ] 4.3 Implement Viewport state
-    - Create viewport.actions.ts, viewport.reducer.ts, viewport.selectors.ts
-    - State: breakpoint, width, height, isMobile, isTablet, isDesktop
-    - Actions: resize, breakpointChanged
-    - Add window resize listener
-    - _Learn: Responsive state management, Tailwind breakpoints_
-  - [ ] 4.4 Implement Widget Registry state
-    - Create widget-registry.actions.ts, .reducer.ts, .selectors.ts
-    - State: widgets Record<id, WidgetInfo>
-    - WidgetInfo: id, loadedAt, status, errorMessage
-    - Actions: registerWidget, widgetLoading, widgetLoaded, widgetError, unregisterWidget
-    - _Learn: Registry pattern, widget lifecycle tracking_
-  - [ ] 4.5 Implement App Metadata state
-    - Create app-metadata.actions.ts, .reducer.ts, .selectors.ts
-    - State: environment, apiEndpoint, locale, timezone, features, appVersion, buildTimestamp
-    - Actions: updateLocale, toggleFeature, updateApiEndpoint
-    - _Learn: Configuration management, feature flags_
-  - [ ] 4.6 Implement Notification state (Grouped Toasts)
-    - Create notifications.actions.ts, .reducer.ts, .selectors.ts
-    - State: toastsMap (grouped by NotificationKey enum), visibleKeys, position, maxVisible
-    - Actions: showToast, dismissToast, autoDismissToast, updatePosition
-    - Implement grouping logic (3 max visible, group by enum key)
-    - _Learn: Complex state management, grouping algorithms, auto-dismiss patterns_
+  - [✅] 4.1 Install NgRx dependencies and configure root store
+    ✅ Install @ngrx/store, @ngrx/effects, @ngrx/store-devtools
+    ✅ Configure `provideStore()` in app.config.ts
+    ✅ Set up Redux DevTools
+    ✅ _Learn: Root store setup, app.config.ts providers_
+  - [✅] 4.2 Implement Theme state
+    ✅ Create theme.actions.ts, theme.reducer.ts, theme.selectors.ts
+    ✅ State: preference ('light' | 'dark' | 'system'), resolved ('light' | 'dark')
+    ✅ Actions: setPreference, systemPreferenceChanged, resolvedThemeUpdated
+    ✅ _Learn: Feature state slices, preference vs resolved values_
+  - [✅] 4.3 Implement Viewport state
+    ✅ Create viewport.actions.ts, viewport.reducer.ts, viewport.selectors.ts
+    ✅ State: breakpoint, deviceType
+    ✅ Actions: breakpointChanged, deviceTypeChanged
+    ✅ Add window resize listener with debounce
+    ✅ _Learn: Responsive state management, Tailwind breakpoints, RxJS debouncing_
+  - [✅] 4.4 Implement Widget Registry state
+    ✅ Create widget-registry.actions.ts, .reducer.ts, .selectors.ts
+    ✅ State: widgets Record<id, WidgetInfo>
+    ✅ WidgetInfo: id, loadedAt, status, errorMessage
+    ✅ Actions: registerWidget, widgetLoading, widgetLoaded, widgetError, unregisterWidget
+    ✅ Added 7 selectors (including factory pattern for selectWidgetById)
+    ✅ Integrated into global store
+    ✅ _Learn: Registry pattern, widget lifecycle tracking, Record data structures, immutable updates_
+  - [✅] **BONUS: Complete Theme System Implementation**
+    ✅ Configured Tailwind v4 dark mode with `@custom-variant`
+    ✅ Created comprehensive CSS custom properties theme system
+    ✅ Light mode: Clean white backgrounds with blue accents (#3b82f6)
+    ✅ Dark mode: Deep dark backgrounds with amber orange accents (#f59e0b)
+    ✅ Created custom Tailwind utilities (@utility) for theme colors
+    ✅ Applied theme throughout app (nav, home, dev-lab components)
+    ✅ Theme toggle working perfectly with ThemeService
+    ✅ All components now fully theme-aware with great UX
+    ✅ _Learn: Tailwind v4, CSS custom properties, @utility directive, theme design, UX principles_
+  - [✅] 4.5 Implement App Metadata state (**Session: 2026-01-20**)
+    ✅ Created app-metadata.actions.ts, .reducer.ts, .selectors.ts, .state.ts
+    ✅ State: environment, apiEndpoint, locale, timezone, features, appVersion, buildTimestamp
+    ✅ Actions: setLocale, setEnvironment, toggleFeature
+    ✅ Learned: `resolveJsonModule`, importing package.json version, `keyof` for type-safe feature flags
+    ✅ _Note: Skipped for now, but completed as practice - not in global store_
+  - [✅] 4.6 Implement Notification state (Grouped Toasts) (**Session: 2026-01-20**)
+    ✅ Created notifications.actions.ts, .reducer.ts, .selectors.ts, .state.ts
+    ✅ State: toastsMap (Record<string, Toast>), visibleKeys, position, maxVisible
+    ✅ NotificationKey enum with 10 keys for grouping
+    ✅ Actions: showToast, dismissToast, autoDismissToast, dismissAllToasts, updatePosition
+    ✅ Implemented advanced grouping logic (increment count, track occurrences, max 3 visible)
+    ✅ Factory selectors for dynamic toast lookup
+    ✅ Integrated into global store
+    ✅ _Learned: Record vs Array (O(1) vs O(n)), enum grouping, data vs display separation, complex immutable updates_
   - [ ] 4.7 Implement Loading state
     - Create loading.actions.ts, .reducer.ts, .selectors.ts
     - State: activeOperations[], startedAt, minimumDuration (300ms)

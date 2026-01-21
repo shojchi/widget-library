@@ -10,13 +10,12 @@
     </div>
   </header>
 
-    <!-- NgRx Store Testing Section -->
-  <div class="ngrx-testing-section">
+  <section class="ngrx-testing-section">
     <div class="section-header">
       <h2>🧪 NgRx Store Testing</h2>
       <p>Test the Task Store (Actions → Effects → State)</p>
     </div>
-    
+
     <div class="ngrx-actions">
       <button class="action-btn primary" (click)="loadTasksFromStore()">
         📥 Load Tasks (via Store)
@@ -54,11 +53,61 @@
         }
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Main Content -->
-  <div class="playground-content">
-    <!-- Left Panel: Query Editor -->
+  <section class="theme-test-section">
+    <div class="section-header">
+      <h2>🎨 Theme Store Test</h2>
+      <p>Test NgRx theme state management</p>
+    </div>
+
+    <div class="theme-controls">
+      <div class="theme-info">
+        <h3>Current State:</h3>
+        <ul>
+          <li><strong>Preference:</strong> {{ preference$ | async }}</li>
+          <li><strong>Resolved Theme:</strong> {{ theme$ | async }}</li>
+          <li><strong>Is Dark Mode:</strong> {{ isDarkMode$ | async }}</li>
+        </ul>
+      </div>
+
+      <div class="theme-buttons">
+        <h3>Set Preference:</h3>
+        <button (click)="setLight()">☀️ Light</button>
+        <button (click)="setDark()">🌙 Dark</button>
+        <button (click)="setSystem()">💻 System</button>
+      </div>
+
+      <div class="theme-system">
+        <h3>Simulate System Change:</h3>
+        <button (click)="simulateSystemChange('light')">System → Light</button>
+        <button (click)="simulateSystemChange('dark')">System → Dark</button>
+        <p class="hint">💡 Set preference to "System" first, then test these buttons</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="theme-test-section bg-surface rounded-lg p-6 my-8 shadow-lg">
+    <div class="text-center mb-4 pb-4 border-b-2 border-gray-200">
+      <h2 class="font-bold text-2xl text-foreground mb-2">📐 Viewport Store Test</h2>
+      <p class="text-md text-muted">Resize your browser to see viewport state changes</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6">
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Current State:</h3>
+        <ul class="space-y-3 grid grid-cols-3">
+          <li><strong>Breakpoint:</strong> {{ breakpoint$ | async }}</li>
+          <li><strong>Device Type:</strong> {{ deviceType$ | async }}</li>
+          <li><strong>Is Mobile:</strong> {{ isMobile$ | async }}</li>
+          <li><strong>Is Tablet:</strong> {{ isTablet$ | async }}</li>
+          <li><strong>Is Desktop:</strong> {{ isDesktop$ | async }}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="playground-content">
     <div class="editor-panel">
       <div class="panel-header">
         <h2>Query Editor</h2>
@@ -72,7 +121,6 @@
         </button>
       </div>
 
-      <!-- Example Queries -->
       <div class="examples">
         <label class="examples-label">Examples:</label>
         <div class="examples-buttons">
@@ -84,7 +132,6 @@
         </div>
       </div>
 
-      <!-- Query Textarea -->
       <div class="editor-section">
         <label class="editor-label">Query / Mutation</label>
         <textarea
@@ -96,7 +143,6 @@
         ></textarea>
       </div>
 
-      <!-- Variables Textarea -->
       <div class="editor-section">
         <label class="editor-label">Variables (JSON)</label>
         <textarea
@@ -109,7 +155,6 @@
       </div>
     </div>
 
-    <!-- Right Panel: Results -->
     <div class="results-panel">
       <div class="panel-header">
         <h2>Response</h2>
@@ -139,5 +184,5 @@
         }
       </div>
     </div>
-  </div>
+  </section>
 </div>

@@ -1,3 +1,69 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* === LIGHT MODE - Clean & Bright === */
+  --color-background: #ffffff;
+  --color-foreground: #1f2937;
+  --color-primary: #3b82f6;
+  --color-primary-hover: #2563eb;
+  --color-secondary: #dbeafe;
+  --color-surface: #f9fafb;
+  --color-border: #e5e7eb;
+  --color-muted: #6b7280;
+}
+
+/* === DARK MODE - Deep & Cozy === */
+.dark {
+  --color-background: #111827;
+  --color-foreground: #f3f4f6;
+  --color-primary: #f59e0b;
+  --color-primary-hover: #d97706;
+  --color-secondary: #292524;
+  --color-surface: #1f2937;
+  --color-border: #374151;
+  --color-muted: #9ca3af;
+}
+
+/* Global styles using your theme */
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+}
+
+@utility text-foreground {
+  color: var(--color-foreground);
+}
+
+@utility text-muted {
+  color: var(--color-muted);
+}
+
+@utility text-primary {
+  color: var(--color-primary);
+}
+
+@utility bg-background {
+  background-color: var(--color-background);
+}
+
+@utility bg-surface {
+  background-color: var(--color-surface);
+}
+
+@utility bg-primary {
+  background-color: var(--color-primary);
+}
+
+@utility bg-primary-hover {
+  background-color: var(--color-primary-hover);
+}
+
+@utility border-border {
+  border-color: var(--color-border);
+}
+
+@utility border-primary {
+  border-color: var(--color-primary);
+}
