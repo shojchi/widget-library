@@ -89,18 +89,18 @@
     ✅ Factory selectors for dynamic toast lookup
     ✅ Integrated into global store
     ✅ _Learned: Record vs Array (O(1) vs O(n)), enum grouping, data vs display separation, complex immutable updates_
-  - [ ] 4.7 Implement Loading state
-    - Create loading.actions.ts, .reducer.ts, .selectors.ts
-    - State: activeOperations[], startedAt, minimumDuration (300ms)
-    - Actions: startOperation, completeOperation, clearAllOperations
-    - Create selector: selectCanHideLoader (respects minimum 300ms)
-    - _Learn: Operation tracking, UX-focused state (minimum display time)_
-  - [ ] 4.8 Implement Auth state (Mock)
-    - Create auth.actions.ts, .reducer.ts, .selectors.ts, auth.effects.ts
-    - State: status, user (id, username), error
-    - Actions: login, loginSuccess, loginFailure, logout, clearError
-    - Create mock auth service with hardcoded users
-    - _Learn: Authentication flow, effects for async operations_
+  - [✅] 4.7 Implement Loading state
+    ✅ Create loading.actions.ts, .reducer.ts, .selectors.ts
+    ✅ State: activeOperations[], startedAt, minimumDuration (300ms)
+    ✅ Actions: startOperation, completeOperation, clearAllOperations
+    ✅ Create selector: selectCanHideLoader (respects minimum 300ms)
+    ✅ _Learn: Operation tracking, UX-focused state (minimum display time)_
+  - [✅] 4.8 Implement Auth state (Mock)
+    ✅ Create auth.actions.ts, .reducer.ts, .selectors.ts, auth.effects.ts
+    ✅ State: status, user (id, username), error
+    ✅ Actions: login, loginSuccess, loginFailure, logout, clearError
+    ✅ Create mock auth service with hardcoded users
+    ✅ _Learn: Authentication flow, effects for async operations_
   - [ ] 4.9 Test Global Store integration
     - Verify all state slices load correctly
     - Test Redux DevTools shows all actions
