@@ -19,10 +19,13 @@ import {
   viewportReducer,
   widgetRegistryReducer,
   appMetadataReducer,
-  notificationsReducer
+  notificationsReducer,
+  authReducer,
+  AuthEffects
 } from 'widget-library';
 import { ViewportService } from './services/viewport.service';
 import { ThemeService } from './services/theme.service';
+import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -43,8 +46,12 @@ export const appConfig: ApplicationConfig = {
       viewport: viewportReducer,
       widgetRegistry: widgetRegistryReducer,
       appMetadata: appMetadataReducer,
-      notifications: notificationsReducer
+      notifications: notificationsReducer,
+      auth: authReducer
     }),
+    provideEffects([
+      AuthEffects
+    ]),
     provideAppInitializer(() => {
       const viewportService = inject(ViewportService);
       const themeService = inject(ThemeService);
