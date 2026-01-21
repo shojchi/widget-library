@@ -19,6 +19,7 @@ export * from './lib/core/store/widget-registry';
 export * from './lib/core/store/app-metadata';
 export * from './lib/core/store/notifications';
 export * from './lib/core/store/auth';
+export * from './lib/core/store/loading';
 
 // Core Components
 export * from './lib/widget-library';

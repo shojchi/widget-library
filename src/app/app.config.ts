@@ -21,7 +21,8 @@ import {
   appMetadataReducer,
   notificationsReducer,
   authReducer,
-  AuthEffects
+  AuthEffects,
+  loadingReducer
 } from 'widget-library';
 import { ViewportService } from './services/viewport.service';
 import { ThemeService } from './services/theme.service';
@@ -47,7 +48,8 @@ export const appConfig: ApplicationConfig = {
       widgetRegistry: widgetRegistryReducer,
       appMetadata: appMetadataReducer,
       notifications: notificationsReducer,
-      auth: authReducer
+      auth: authReducer,
+      loading: loadingReducer
     }),
     provideEffects([
       AuthEffects
