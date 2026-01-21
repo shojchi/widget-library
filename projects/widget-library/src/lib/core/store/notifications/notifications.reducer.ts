@@ -7,14 +7,19 @@ export const notificationsReducer = createReducer(
 
   on(
     NotificationsActions.showToast,
-    (state, { toastType, message, key, duration, dismissible }) => {
+    (state, { toastType, message, key, duration, dismissible, timestamp, id }) => {
       const existingToast = state.toastsMap[key];
-      const now = Date.now();
 
       const toastDuration = duration ?? 5000;
       const toastDismissible = dismissible ?? true;
 
       if (existingToast) {
+        const newVisibleKeys = state.visibleKeys.includes(key)
+          ? state.visibleKeys
+          : state.visibleKeys.length < state.maxVisible
+            ? [...state.visibleKeys, key]
+            : state.visibleKeys;
+
         return {
           ...state,
           toastsMap: {
@@ -22,19 +27,25 @@ export const notificationsReducer = createReducer(
             [key]: {
               ...existingToast,
               count: existingToast.count + 1,
-              lastOccurredAt: now
+              lastOccurredAt: timestamp
             }
-          }
+          },
+          visibleKeys: newVisibleKeys
         };
       } else {
+        if (!id) {
+          console.error('showToast: id is required for new toasts!');
+          return state;
+        }
+
         const newToast: Toast = {
-          id: crypto.randomUUID(),
+          id: id,
           toastType,
           message,
           key,
           count: 1,
-          firstOccurredAt: now,
-          lastOccurredAt: now,
+          firstOccurredAt: timestamp,
+          lastOccurredAt: timestamp,
           duration: toastDuration,
           dismissible: toastDismissible
         };

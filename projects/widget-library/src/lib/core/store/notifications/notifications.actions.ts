@@ -10,6 +10,8 @@ export const NotificationsActions = createActionGroup({
       key: NotificationKey;
       duration?: number;
       dismissible?: boolean;
+      timestamp: number;
+      id?: string;
     }>(),
     'Dismiss Toast': props<{ key: NotificationKey }>(),
     'Dismiss All Toasts': emptyProps(),
