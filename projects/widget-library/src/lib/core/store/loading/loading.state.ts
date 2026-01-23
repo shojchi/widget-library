@@ -1,16 +1,14 @@
 export interface LoadingProcess {
-  id: string;
-  message: string;
+  operationName: string;
+  message?: string;
 }
 
 export interface LoadingState {
-  activeOperations: LoadingProcess[];
-  startedAt: number | null;
+  operations: Record<string, LoadingProcess>;
   delayBeforeSpinner: number;
 }
 
 export const initialLoadingState: LoadingState = {
-  activeOperations: [],
-  startedAt: null,
+  operations: {},
   delayBeforeSpinner: 150
 };

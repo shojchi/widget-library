@@ -3,26 +3,17 @@ import { LoadingProcess, LoadingState } from './loading.state';
 
 export const selectLoadingState = createFeatureSelector<LoadingState>('loading');
 
-export const selectActiveOperations = createSelector(
-  selectLoadingState,
-  (state: LoadingState) => state.activeOperations
+export const selectAllOperations = createSelector(selectLoadingState, state =>
+  Object.values(state.operations)
 );
 
 export const selectIsLoading = createSelector(
-  selectLoadingState,
-  (state: LoadingState) => state.activeOperations.length > 0
+  selectAllOperations,
+  oprations => oprations.length > 0
 );
 
-export const selectLoadingStartedAt = createSelector(
-  selectLoadingState,
-  (state: LoadingState) => state.startedAt
-);
-
-export const selectLoadingData = createSelector(
-  selectLoadingState,
-  (state: LoadingState) => ({
-    isLoading: state.activeOperations.length > 0,
-    startedAt: state.startedAt,
-    delayBeforeSpinner: state.delayBeforeSpinner
-  })
-);
+export const selectIsOperationLoading = (operationName: string) =>
+  createSelector(
+    selectLoadingState,
+    (state: LoadingState) => !!state.operations[operationName]
+  );

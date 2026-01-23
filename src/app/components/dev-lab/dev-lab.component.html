@@ -107,6 +107,532 @@
     </div>
   </section>
 
+  <!-- ==================== Loading State Test ==================== -->
+  <section class="theme-test-section bg-surface rounded-lg p-6 my-8 shadow-lg">
+    <div class="text-center mb-4 pb-4 border-b-2 border-gray-200">
+      <h2 class="font-bold text-2xl text-foreground mb-2">⏳ Loading Store Test</h2>
+      <p class="text-md text-muted">Test global loading state with operations tracking</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6">
+      <!-- Current State Display -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Current State:</h3>
+        <ul class="space-y-3">
+          <li><strong>Is Loading:</strong> {{ isLoading$ | async }}</li>
+          <li>
+            <strong>Active Operations:</strong>
+            {{ (activeOperations$ | async)?.length || 0 }}
+          </li>
+          <li class="text-sm text-muted">
+            Operations:
+            @if (activeOperations$ | async; as ops) {
+              @if (ops.length > 0) {
+                <span class="font-mono">{{ ops | json }}</span>
+              } @else {
+                <span>None</span>
+              }
+            }
+          </li>
+        </ul>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Test Actions:</h3>
+        <div class="flex gap-3 flex-wrap">
+          <button
+            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            (click)="startLoadingOperation('fetchData')"
+          >
+            ▶️ Start 'fetchData'
+          </button>
+          <button
+            class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            (click)="completeLoadingOperation('fetchData')"
+          >
+            ✅ Complete 'fetchData'
+          </button>
+          <button
+            class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600"
+            (click)="startLoadingOperation('saveData')"
+          >
+            ▶️ Start 'saveData'
+          </button>
+          <button
+            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            (click)="clearAllLoadingOperations()"
+          >
+            🗑️ Clear All
+          </button>
+        </div>
+        <p class="mt-3 text-sm text-muted">💡 Open Redux DevTools to see actions!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Widget Registry Test ==================== -->
+  <section class="theme-test-section bg-surface rounded-lg p-6 my-8 shadow-lg">
+    <div class="text-center mb-4 pb-4 border-b-2 border-gray-200">
+      <h2 class="font-bold text-2xl text-foreground mb-2">📦 Widget Registry Test</h2>
+      <p class="text-md text-muted">Track registered widgets and their status</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6">
+      <!-- Current State Display -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Current State:</h3>
+        <ul class="space-y-3">
+          <li>
+            <strong>Total Widgets:</strong> {{ (allWidgets$ | async)?.length || 0 }}
+          </li>
+          <li>
+            <strong>Loaded Widgets:</strong> {{ (loadedWidgets$ | async)?.length || 0 }}
+          </li>
+          <li><strong>Any Loading:</strong> {{ isAnyWidgetLoading$ | async }}</li>
+        </ul>
+      </div>
+
+      <!-- Registered Widgets List -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Registered Widgets:</h3>
+        @if (allWidgets$ | async; as widgets) {
+          @if (widgets.length > 0) {
+            <ul class="space-y-2">
+              @for (widget of widgets; track widget.id) {
+                <li
+                  class="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-700 rounded"
+                >
+                  <div class="flex-1">
+                    <span class="font-mono text-sm font-bold">{{ widget.id }}</span>
+                    <span
+                      class="ml-3 px-2 py-1 text-xs rounded font-semibold"
+                      [class]="getWidgetStatusClass(widget.status)"
+                    >
+                      {{ widget.status }}
+                    </span>
+                    @if (widget.errorMessage) {
+                      <span class="ml-2 text-xs text-red-600">{{
+                        widget.errorMessage
+                      }}</span>
+                    }
+                  </div>
+                  <button
+                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm"
+                    (click)="unregisterWidget(widget.id)"
+                  >
+                    🗑️ Remove
+                  </button>
+                </li>
+              }
+            </ul>
+          } @else {
+            <p class="text-muted">No widgets registered</p>
+          }
+        }
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Test Actions:</h3>
+        <div class="flex gap-3 flex-wrap">
+          <button
+            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            (click)="registerWidget('task-widget-1')"
+          >
+            ➕ Register 'task-widget-1'
+          </button>
+          <button
+            class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+            (click)="setWidgetLoading('task-widget-1')"
+          >
+            ⏳ Set Loading
+          </button>
+          <button
+            class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            (click)="setWidgetLoaded('task-widget-1')"
+          >
+            ✅ Set Loaded
+          </button>
+          <button
+            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            (click)="setWidgetError('task-widget-1', 'Failed to load widget')"
+          >
+            ❌ Set Error
+          </button>
+        </div>
+        <p class="mt-3 text-sm text-muted">
+          💡 Register a widget first, then change its status!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== App Metadata Test ==================== -->
+  <section class="theme-test-section bg-surface rounded-lg p-6 my-8 shadow-lg">
+    <div class="text-center mb-4 pb-4 border-b-2 border-gray-200">
+      <h2 class="font-bold text-2xl text-foreground mb-2">⚙️ App Metadata Test</h2>
+      <p class="text-md text-muted">Test application settings and feature flags</p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6">
+      <!-- Current State Display -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Current State:</h3>
+        <ul class="space-y-3">
+          <li><strong>Environment:</strong> {{ environment$ | async }}</li>
+          <li><strong>Locale:</strong> {{ locale$ | async }}</li>
+          <li class="text-sm">
+            <strong>Feature Flags:</strong>
+            @if (featureFlags$ | async; as flags) {
+              <div class="ml-4 mt-2 space-y-1">
+                <div>
+                  enableBetaWidgets:
+                  <span class="font-mono">{{ flags.enableBetaWidgets }}</span>
+                </div>
+                <div>
+                  enableAnalytics:
+                  <span class="font-mono">{{ flags.enableAnalytics }}</span>
+                </div>
+                <div>
+                  debugMode: <span class="font-mono">{{ flags.debugMode }}</span>
+                </div>
+              </div>
+            }
+          </li>
+        </ul>
+      </div>
+
+      <!-- Environment Controls -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Change Environment:</h3>
+        <div class="flex gap-3 flex-wrap">
+          <button
+            class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            (click)="changeEnvironment('development')"
+          >
+            🔧 Development
+          </button>
+          <button
+            class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
+            (click)="changeEnvironment('staging')"
+          >
+            🚀 Staging
+          </button>
+          <button
+            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            (click)="changeEnvironment('production')"
+          >
+            ⚡ Production
+          </button>
+        </div>
+      </div>
+
+      <!-- Locale Controls -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Change Locale:</h3>
+        <div class="flex gap-3 flex-wrap">
+          <button
+            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            (click)="changeLocale('en-US')"
+          >
+            🇺🇸 English (US)
+          </button>
+          <button
+            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            (click)="changeLocale('uk-UA')"
+          >
+            🇺🇦 Ukrainian
+          </button>
+          <button
+            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            (click)="changeLocale('de-DE')"
+          >
+            🇩🇪 German
+          </button>
+        </div>
+      </div>
+
+      <!-- Feature Flags Controls -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Toggle Feature Flags:</h3>
+        <div class="flex gap-3 flex-wrap">
+          <button
+            class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
+            (click)="toggleFeature('enableBetaWidgets')"
+          >
+            🧪 Toggle Beta Widgets
+          </button>
+          <button
+            class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
+            (click)="toggleFeature('enableAnalytics')"
+          >
+            📊 Toggle Analytics
+          </button>
+          <button
+            class="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
+            (click)="toggleFeature('debugMode')"
+          >
+            🐛 Toggle Debug Mode
+          </button>
+        </div>
+        <p class="mt-3 text-sm text-muted">
+          💡 Watch the feature flags update in real-time!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Notifications Test ==================== -->
+  <section class="theme-test-section bg-surface rounded-lg p-6 my-8 shadow-lg">
+    <div class="text-center mb-4 pb-4 border-b-2 border-gray-200">
+      <h2 class="font-bold text-2xl text-foreground mb-2">🔔 Notifications Test</h2>
+      <p class="text-md text-muted">
+        Test toast messages with smart grouping (max 3 visible)
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6">
+      <!-- Current State Display -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Current State:</h3>
+        <ul class="space-y-3">
+          <li><strong>Total Toasts:</strong> {{ toastCount$ | async }}</li>
+          <li>
+            <strong>Visible Toasts:</strong> {{ (visibleToasts$ | async)?.length || 0 }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- Visible Toasts Display -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Active Toasts:</h3>
+        @if (visibleToasts$ | async; as toasts) {
+          @if (toasts.length > 0) {
+            <ul class="space-y-2">
+              @for (toast of toasts; track toast.key) {
+                <li
+                  class="flex items-center justify-between p-3 rounded"
+                  [class.bg-green-100]="toast.toastType === 'success'"
+                  [class.dark:bg-green-900]="toast.toastType === 'success'"
+                  [class.bg-red-100]="toast.toastType === 'error'"
+                  [class.dark:bg-red-900]="toast.toastType === 'error'"
+                  [class.bg-yellow-100]="toast.toastType === 'warning'"
+                  [class.dark:bg-yellow-900]="toast.toastType === 'warning'"
+                  [class.bg-blue-100]="toast.toastType === 'info'"
+                  [class.dark:bg-blue-900]="toast.toastType === 'info'"
+                >
+                  <div class="flex-1">
+                    <div class="flex items-center gap-2">
+                      <span class="text-lg">
+                        @if (toast.toastType === 'success') {
+                          ✅
+                        } @else if (toast.toastType === 'error') {
+                          ❌
+                        } @else if (toast.toastType === 'warning') {
+                          ⚠️
+                        } @else {
+                          ℹ️
+                        }
+                      </span>
+                      <span class="font-semibold">{{ toast.message }}</span>
+                      @if (toast.count > 1) {
+                        <span
+                          class="px-2 py-1 bg-gray-700 text-white text-xs rounded-full"
+                        >
+                          ×{{ toast.count }}
+                        </span>
+                      }
+                    </div>
+                    <div class="text-xs text-muted mt-1">
+                      Key: {{ toast.key }} | Duration: {{ toast.duration }}ms
+                    </div>
+                  </div>
+                  <button
+                    class="px-3 py-1 bg-gray-500 text-white rounded hover:bg-gray-600 text-sm ml-2"
+                    (click)="dismissToast(toast.key)"
+                  >
+                    ✕
+                  </button>
+                </li>
+              }
+            </ul>
+          } @else {
+            <p class="text-muted">No active toasts</p>
+          }
+        }
+      </div>
+
+      <!-- Test Actions -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Show Toasts:</h3>
+        <div class="flex gap-3 flex-wrap">
+          <button
+            class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
+            (click)="showSuccessToast()"
+          >
+            ✅ Success Toast
+          </button>
+          <button
+            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+            (click)="showErrorToast()"
+          >
+            ❌ Error Toast
+          </button>
+          <button
+            class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600"
+            (click)="dismissAllToasts()"
+          >
+            🗑️ Dismiss All
+          </button>
+        </div>
+        <p class="mt-3 text-sm text-muted">
+          💡 Click success/error multiple times - watch them group with a counter!
+        </p>
+        <p class="text-sm text-muted">
+          💡 Only 3 toasts shown at once - excess are queued
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Auth Test ==================== -->
+  <section class="theme-test-section bg-surface rounded-lg p-6 my-8 shadow-lg">
+    <div class="text-center mb-4 pb-4 border-b-2 border-gray-200">
+      <h2 class="font-bold text-2xl text-foreground mb-2">🔐 Auth Store Test</h2>
+      <p class="text-md text-muted">
+        Test authentication with async effects (mock users)
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6">
+      <!-- Current Auth State -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Current State:</h3>
+        <ul class="space-y-3">
+          <li>
+            <strong>Status:</strong>
+            <span
+              class="px-2 py-1 rounded text-sm font-semibold ml-2"
+              [class.bg-gray-500]="(authStatus$ | async) === 'anonymous'"
+              [class.bg-yellow-500]="(authStatus$ | async) === 'authenticating'"
+              [class.bg-green-500]="(authStatus$ | async) === 'authenticated'"
+              [class.bg-red-500]="(authStatus$ | async) === 'error'"
+              [class.text-white]="true"
+            >
+              {{ authStatus$ | async }}
+            </span>
+          </li>
+          <li><strong>Is Authenticated:</strong> {{ isAuthenticated$ | async }}</li>
+          <li>
+            <strong class="mr-2">Current User:</strong>
+            @if (authUser$ | async; as user) {
+              <span class="font-mono">{{ user.username }} (ID: {{ user.id }})</span>
+            } @else {
+              <span class="text-muted">None</span>
+            }
+          </li>
+          <li>
+            <strong class="mr-2">Error:</strong>
+            @if (authError$ | async; as error) {
+              <span class="text-red-600">{{ error }}</span>
+            } @else {
+              <span class="text-muted">None</span>
+            }
+          </li>
+        </ul>
+      </div>
+
+      <!-- Login Form -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Login:</h3>
+
+        <!-- Mock Users Info -->
+        <div class="mb-4 p-3 bg-blue-50 dark:bg-blue-900 rounded text-sm">
+          <p class="font-semibold mb-2">📝 Mock Users (for testing):</p>
+          <ul class="space-y-1 ml-4">
+            <li>
+              Username: <code class="font-mono">admin</code> | Password:
+              <code class="font-mono">admin</code>
+            </li>
+            <li>
+              Username: <code class="font-mono">user</code> | Password:
+              <code class="font-mono">user</code>
+            </li>
+          </ul>
+        </div>
+
+        <div class="space-y-3">
+          <div>
+            <label class="block text-sm font-medium mb-1">Username:</label>
+            <input
+              type="text"
+              #usernameInput
+              class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Try 'admin' or 'user'"
+              [disabled]="(isAuthenticated$ | async) === true"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Password:</label>
+            <input
+              type="password"
+              #passwordInput
+              class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Try 'admin' or 'user'"
+              [disabled]="(isAuthenticated$ | async) === true"
+              (keyup.enter)="login(usernameInput.value, passwordInput.value)"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Auth Actions -->
+      <div class="rounded-lg p-5 border border-gray-200">
+        <h3 class="text-lg font-semibold mb-4">Actions:</h3>
+        <div class="flex gap-3 flex-wrap">
+          <button
+            class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            (click)="login(usernameInput.value, passwordInput.value)"
+            [disabled]="
+              (isAuthenticated$ | async) === true ||
+              (authStatus$ | async) === 'authenticating'
+            "
+            #usernameInput
+            #passwordInput
+          >
+            @if ((authStatus$ | async) === 'authenticating') {
+              ⏳ Logging in...
+            } @else {
+              🔑 Login
+            }
+          </button>
+          <button
+            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            (click)="logout()"
+            [disabled]="(isAuthenticated$ | async) !== true"
+          >
+            🚪 Logout
+          </button>
+          <button
+            class="px-4 py-2 bg-orange-500 text-white rounded hover:bg-orange-600"
+            (click)="clearAuthError()"
+            [disabled]="!(authError$ | async)"
+          >
+            🗑️ Clear Error
+          </button>
+        </div>
+        <p class="mt-3 text-sm text-muted">
+          💡 Watch Redux DevTools to see the async action flow: login →
+          loginSuccess/loginFailure
+        </p>
+        <p class="text-sm text-muted">
+          💡 Try wrong credentials to trigger an error state!
+        </p>
+      </div>
+    </div>
+  </section>
+
   <section class="playground-content">
     <div class="editor-panel">
       <div class="panel-header">

@@ -4,22 +4,23 @@ import { LoadingActions } from './loading.actions';
 
 export const loadingReducer = createReducer(
   initialLoadingState,
-  on(
-    LoadingActions.startLoading,
-    (state, { process, startedAt }) => {
-      const newOperations = [...state.activeOperations, process];
 
-      return {
-        ...state,
-        activeOperations: newOperations,
-        startedAt: state.startedAt ?? startedAt
-      };
+  on(LoadingActions.startLoading, (state, { process, startedAt }) => ({
+    ...state,
+    operations: {
+      ...state.operations,
+      [process.operationName]: { ...process, startedAt }
     }
-  ),
-  on(LoadingActions.completeLoading, (state, { id }) => {
-    const newOperations = state.activeOperations.filter(op => op.id !== id);
-    const newStartedAt = newOperations.length === 0 ? null : state.startedAt;
-    return { ...state, activeOperations: newOperations, startedAt: newStartedAt };
+  })),
+
+  on(LoadingActions.completeLoading, (state, { operationName }) => {
+    const { [operationName]: removed, ...remaining } = state.operations;
+
+    return {
+      ...state,
+      operations: remaining
+    };
   }),
+
   on(LoadingActions.clearAllLoadings, () => initialLoadingState)
 );

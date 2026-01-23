@@ -11,15 +11,49 @@ import {
 import { TaskActions } from '@lib/features/task/store/task.actions';
 import { TaskStatus, TaskPriority } from '@lib/features/task/models/task.model';
 import {
+  // Theme (you already have these)
   ThemeActions,
   selectResolvedTheme,
   selectThemePreference,
   selectIsDarkMode,
+
+  // Viewport (you already have these)
   selectBreakpoint,
   selectDeviceType,
   selectIsTablet,
   selectIsMobile,
-  selectIsDesktop
+  selectIsDesktop,
+
+  // 🆕 Loading State
+  LoadingActions,
+  selectIsLoading,
+  selectAllOperations,
+
+  // 🆕 Widget Registry
+  WidgetRegistryActions,
+  selectAllWidgets,
+  selectAllLoadedWidgets,
+  selectIsAnyWidgetLoading,
+
+  // 🆕 App Metadata
+  AppMetadataActions,
+  selectEnvironment,
+  selectLocale,
+  selectFeatureFlags,
+
+  // 🆕 Notifications
+  NotificationsActions,
+  NotificationKey,
+  selectVisibleToasts,
+  selectToastCount,
+
+  // 🆕 Auth
+  AuthActions,
+  selectAuthStatus,
+  selectAuthUser,
+  selectIsAuthenticated,
+  selectAuthError,
+  LoadingProcess
 } from 'widget-library';
 
 /**
@@ -102,6 +136,7 @@ export class DevLabComponent {
   result = signal<any>(null);
   loading = signal<boolean>(false);
   error = signal<string | null>(null);
+
   // NgRx Store signals
   tasks$ = this.store.select(selectAllTasks); // Observable
   ngrxLoading$ = this.store.select(selectTasksLoading);
@@ -118,6 +153,30 @@ export class DevLabComponent {
   isMobile$ = this.store.select(selectIsMobile);
   isTablet$ = this.store.select(selectIsTablet);
   isDesktop$ = this.store.select(selectIsDesktop);
+
+  // Loading Store selectors
+  isLoading$ = this.store.select(selectIsLoading);
+  activeOperations$ = this.store.select(selectAllOperations);
+
+  // Widget Registry Store selectors
+  allWidgets$ = this.store.select(selectAllWidgets);
+  loadedWidgets$ = this.store.select(selectAllLoadedWidgets);
+  isAnyWidgetLoading$ = this.store.select(selectIsAnyWidgetLoading);
+
+  // App Metadata Store selectors
+  environment$ = this.store.select(selectEnvironment);
+  locale$ = this.store.select(selectLocale);
+  featureFlags$ = this.store.select(selectFeatureFlags);
+
+  // Notification Store selectors
+  visibleToasts$ = this.store.select(selectVisibleToasts);
+  toastCount$ = this.store.select(selectToastCount);
+
+  // Auth Store selectors
+  authStatus$ = this.store.select(selectAuthStatus);
+  authUser$ = this.store.select(selectAuthUser);
+  isAuthenticated$ = this.store.select(selectIsAuthenticated);
+  authError$ = this.store.select(selectAuthError);
 
   /**
    * Execute the current query
@@ -208,5 +267,121 @@ export class DevLabComponent {
 
   simulateSystemChange(systemTheme: 'light' | 'dark'): void {
     this.store.dispatch(ThemeActions.systemPreferenceChanged({ systemTheme }));
+  }
+
+  // ==================== Loading Store Actions ====================
+  startLoadingOperation(operationName: string): void {
+    const process = {
+      id: crypto.randomUUID(),
+      operationName,
+      message: `Starting ${operationName}...`
+    } as LoadingProcess;
+    this.store.dispatch(LoadingActions.startLoading({ process, startedAt: Date.now() }));
+  }
+
+  completeLoadingOperation(operationName: string): void {
+    this.store.dispatch(LoadingActions.completeLoading({ operationName }));
+  }
+
+  clearAllLoadingOperations(): void {
+    this.store.dispatch(LoadingActions.clearAllLoadings());
+  }
+
+  // ==================== Widget Registry Actions ====================
+  registerWidget(id: string): void {
+    this.store.dispatch(WidgetRegistryActions.registerWidget({ id }));
+  }
+
+  setWidgetLoading(id: string): void {
+    this.store.dispatch(WidgetRegistryActions.widgetLoading({ id }));
+  }
+
+  setWidgetLoaded(id: string): void {
+    this.store.dispatch(WidgetRegistryActions.widgetLoaded({ id, loadedAt: Date.now() }));
+  }
+
+  setWidgetError(id: string, errorMessage: string): void {
+    this.store.dispatch(WidgetRegistryActions.widgetError({ id, errorMessage }));
+  }
+
+  unregisterWidget(id: string): void {
+    this.store.dispatch(WidgetRegistryActions.unregisterWidget({ id }));
+  }
+
+  // ==================== App Metadata Actions ====================
+  changeLocale(locale: string): void {
+    this.store.dispatch(AppMetadataActions.setLocale({ locale }));
+  }
+
+  changeEnvironment(environment: 'development' | 'staging' | 'production'): void {
+    this.store.dispatch(AppMetadataActions.setEnvironment({ environment }));
+  }
+
+  toggleFeature(feature: 'enableBetaWidgets' | 'enableAnalytics' | 'debugMode'): void {
+    this.store.dispatch(AppMetadataActions.toggleFeature({ feature }));
+  }
+
+  // ==================== Notification Actions ====================
+  showSuccessToast(): void {
+    this.store.dispatch(
+      NotificationsActions.showToast({
+        toastType: 'success',
+        message: 'Operation successful!',
+        key: NotificationKey.GENERIC_SUCCESS,
+        duration: 3000,
+        timestamp: Date.now()
+      })
+    );
+  }
+
+  showErrorToast(): void {
+    this.store.dispatch(
+      NotificationsActions.showToast({
+        toastType: 'error',
+        message: 'Something went wrong!',
+        key: NotificationKey.GENERIC_ERROR,
+        duration: 5000,
+        timestamp: Date.now()
+      })
+    );
+  }
+
+  dismissToast(key: NotificationKey): void {
+    this.store.dispatch(NotificationsActions.dismissToast({ key }));
+  }
+
+  dismissAllToasts(): void {
+    this.store.dispatch(NotificationsActions.dismissAllToasts());
+  }
+
+  // ==================== Auth Actions ====================
+  login(username: string, password: string): void {
+    this.store.dispatch(AuthActions.login({ username, password }));
+  }
+
+  logout(): void {
+    this.store.dispatch(AuthActions.logout());
+  }
+
+  clearAuthError(): void {
+    this.store.dispatch(AuthActions.clearError());
+  }
+
+  // In dev-lab.component.ts
+  getWidgetStatusClass(status: string): string {
+    const baseClasses = 'ml-3 px-2 py-1 text-xs rounded font-semibold';
+
+    switch (status) {
+      case 'idle':
+        return `${baseClasses} bg-blue-500 text-white dark:bg-blue-400 dark:text-gray-900`;
+      case 'loading':
+        return `${baseClasses} bg-yellow-500 text-gray-900 dark:bg-yellow-400 dark:text-gray-900`;
+      case 'ready':
+        return `${baseClasses} bg-green-500 text-white dark:bg-green-400 dark:text-gray-900`;
+      case 'error':
+        return `${baseClasses} bg-red-500 text-white dark:bg-red-400 dark:text-gray-900`;
+      default:
+        return baseClasses;
+    }
   }
 }

@@ -12,11 +12,11 @@ export const appMetadataReducer = createReducer(
     ...state,
     environment
   })),
-  on(AppMetadataActions.toggleFeature, (state, { feature, enabled }) => ({
+  on(AppMetadataActions.toggleFeature, (state, { feature }) => ({
     ...state,
     features: {
       ...state.features,
-      [feature]: enabled
+      [feature]: !state.features[feature]
     }
   }))
 );

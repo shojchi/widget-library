@@ -5,7 +5,7 @@ export const LoadingActions = createActionGroup({
   source: 'Loading',
   events: {
     'Start Loading': props<{ process: LoadingProcess; startedAt: number }>(),
-    'Complete Loading': props<{ id: string }>(),
+    'Complete Loading': props<{ operationName: string }>(),
     'Clear All Loadings': emptyProps()
   }
 });

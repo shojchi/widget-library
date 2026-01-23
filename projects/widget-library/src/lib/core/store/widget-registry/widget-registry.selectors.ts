@@ -6,7 +6,7 @@ export const selectWidgetRegistryState =
 
 export const selectAllWidgets = createSelector(
   selectWidgetRegistryState,
-  (state: WidgetRegistryState) => state.widgets
+  (state: WidgetRegistryState) => Object.values(state.widgets)
 );
 
 export const selectAllLoadedWidgets = createSelector(
@@ -36,8 +36,11 @@ export const selectIsAnyWidgetLoading = createSelector(
 export const selectWidgetCountByStatus = createSelector(
   selectWidgetRegistryState,
   (state: WidgetRegistryState) =>
-    Object.values(state.widgets).reduce((acc, widget) => {
-      acc[widget.status] = (acc[widget.status] || 0) + 1;
-      return acc;
-    }, {} as Record<WidgetStatus, number>)
+    Object.values(state.widgets).reduce(
+      (acc, widget) => {
+        acc[widget.status] = (acc[widget.status] || 0) + 1;
+        return acc;
+      },
+      {} as Record<WidgetStatus, number>
+    )
 );
