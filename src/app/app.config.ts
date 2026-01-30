@@ -51,9 +51,7 @@ export const appConfig: ApplicationConfig = {
       auth: authReducer,
       loading: loadingReducer
     }),
-    provideEffects([
-      AuthEffects
-    ]),
+    provideEffects([AuthEffects]),
     provideAppInitializer(() => {
       const viewportService = inject(ViewportService);
       const themeService = inject(ThemeService);

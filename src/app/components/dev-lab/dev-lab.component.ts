@@ -7,7 +7,7 @@ import {
   selectAllTasks,
   selectTasksLoading,
   selectTasksError
-} from '@lib/features/task/store/task.selectors';
+} from '@lib/features/task-classic/store/task-classic.selectors';
 import { TaskActions } from '@lib/features/task/store/task.actions';
 import { TaskStatus, TaskPriority } from '@lib/features/task/models/task.model';
 import {

@@ -3,8 +3,8 @@ export type {
   Task,
   TaskStatus,
   TaskPriority
-} from '../projects/widget-library/src/lib/features/task/models/task.model';
-import type { Task } from '../projects/widget-library/src/lib/features/task/models/task.model';
+} from '../projects/widget-library/src/lib/features/task-classic/models/task.model';
+import type { Task } from '../projects/widget-library/src/lib/features/task-classic/models/task.model';
 
 // User types remain here for now (not part of the library yet)
 // Storage layer (what mockUsers contains)
