@@ -68,3 +68,17 @@ projects/widget-library/src/
 ```
 
 See `.ai/AGENT_INSTRUCTIONS.md` for complete guidelines and interaction patterns.
+
+## Terminal Hygiene (CRITICAL)
+
+**Goal:** Prevent duplicate processes and "stuck" commands.
+
+- **ALWAYS CHECK BEFORE STARTING:** Before running a long-running command (like `pnpm start`, `ng serve`), you MUST check if a process is already running on that port.
+  - *Example:* Use `lsof -i:4200` to check port 4200.
+  
+- **KILL BEFORE RESTART:** If you need to restart a server, you MUST explicitly kill the previous process first. **Do not assume it stopped.**
+  - *Example:* `lsof -ti:4200 | xargs kill -9`
+  
+- **VERIFY SUCCESS:** After running a command, enable `WaitDurationSeconds` in `command_status` to ensure it didn't crash immediately.
+
+- **ONE SERVER ONLY:** Never start a second `pnpm start` if one is already running in the background. Ask the user if they want to stop the existing one.

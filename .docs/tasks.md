@@ -117,24 +117,24 @@
   **Purpose:** Build the same Task Widget using 3 different NgRx approaches to compare and learn trade-offs
 
   **See:** `.docs/ngrx-architecture.md` for complete patterns and `.docs/ngrx_extended.md` for learning guide
-  - [ ] 5.1 Widget 1 - Classic NgRx with Feature Store
-    - Create `projects/widget-library/src/lib/features/task-classic/`
-    - **Store setup:**
-      - task.actions.ts with createActionGroup (loadTasks, createTask, updateTask, deleteTask, setFilter)
-      - task.reducer.ts with createReducer (handle all CRUD operations immutably)
-      - task.effects.ts with createEffect (integrate with Apollo GraphQL)
-      - task.selectors.ts with createFeatureSelector and memoized selectors
+  - [✅] 5.1 Widget 1 - Classic NgRx with Feature Store
+    ✅ Create `projects/widget-library/src/lib/features/task-classic/`
+    ✅ **Store setup:**
+      ✅ task.actions.ts with createActionGroup (loadTasks, createTask, updateTask, deleteTask, setFilter)
+      ✅ task.reducer.ts with createReducer (handle all CRUD operations immutably)
+      ✅ task.effects.ts with createEffect (integrate with Apollo GraphQL)
+      ✅ task.selectors.ts with createFeatureSelector and memoized selectors
     - **Feature state:**
-      - Use `provideState()` for lazy-loaded feature state
-      - State: tasks[], loading, error, filter
-      - Integrate with global store (read theme, dispatch notifications)
+      ✅ Use `provideState()` for lazy-loaded feature state
+      ✅ State: tasks[], loading, error, filter
+      ✅ Integrate with global store (read theme, dispatch notifications)
     - **Component:**
-      - TaskWidgetClassicComponent
-      - Read state via selectors: selectAllTasks$, selectLoading$, selectError$
-      - Dispatch actions: store.dispatch(TaskActions.createTask(...))
-      - UI: task list, create form, filter buttons, loading spinner
+      ✅ TaskWidgetClassicComponent
+      ✅ Read state via selectors: selectAllTasks$, selectLoading$, selectError$
+      ✅ Dispatch actions: store.dispatch(TaskActions.createTask(...))
+      ✅ UI: task list, create form, filter buttons, loading spinner
     - **Test:**
-      - Open Redux DevTools and verify all actions appear
+      ✅ Open Redux DevTools and verify all actions appear
       - Try time-travel debugging (step backward/forward)
       - Verify memoized selectors don't recompute unnecessarily
     - _Learn: Feature stores, lazy loading, action/reducer/effect pattern, DevTools power_
