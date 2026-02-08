@@ -17,14 +17,28 @@ export enum TaskPriority {
   HIGH = 'HIGH'
 }
 
-export interface Task {
+/**
+ * Storage layer - Core task data
+ */
+export interface TaskData {
   id: string;
   title: string;
-  description: string;
+  description?: string; // Optional - not all tasks have descriptions
   status: TaskStatus;
   priority: TaskPriority;
   createdAt: string; // ISO 8601 string for easier serialization
   updatedAt: string;
+}
+
+/**
+ * API layer - Task with potential relationships
+ * Currently same as TaskData, but can be extended with relationships later
+ * (e.g., assignedUser, comments, etc.)
+ */
+export interface Task extends TaskData {
+  assignedTo?: string; // User ID - optional since not all tasks are assigned
+  // Future: add more relationships when needed
+  // comments?: Comment[];
 }
 
 /**

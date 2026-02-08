@@ -5,11 +5,11 @@ import { GraphQLService } from './graphql.service';
 import { Store } from '@ngrx/store';
 import {
   selectAllTasks,
-  selectTasksLoading,
-  selectTasksError
+  selectLoading,
+  selectError
 } from '@lib/features/task-classic/store/task-classic.selectors';
-import { TaskActions } from '@lib/features/task/store/task.actions';
-import { TaskStatus, TaskPriority } from '@lib/features/task/models/task.model';
+import { TaskClassicActions } from '@lib/features/task-classic/store/task-classic.actions';
+import { TaskStatus, TaskPriority } from '@lib/features/task-classic/models/task.model';
 import {
   // Theme (you already have these)
   ThemeActions,
@@ -139,8 +139,8 @@ export class DevLabComponent {
 
   // NgRx Store signals
   tasks$ = this.store.select(selectAllTasks); // Observable
-  ngrxLoading$ = this.store.select(selectTasksLoading);
-  ngrxError$ = this.store.select(selectTasksError);
+  ngrxLoading$ = this.store.select(selectLoading);
+  ngrxError$ = this.store.select(selectError);
 
   // Theme Store selectors
   theme$ = this.store.select(selectResolvedTheme);
@@ -236,13 +236,13 @@ export class DevLabComponent {
 
   // NgRx Store Actions
   loadTasksFromStore(): void {
-    this.store.dispatch(TaskActions.loadTasks());
+    this.store.dispatch(TaskClassicActions.loadTasks());
   }
 
   createTaskViaStore(): void {
     this.store.dispatch(
-      TaskActions.createTask({
-        task: {
+      TaskClassicActions.createTask({
+        input: {
           title: 'Task from NgRx',
           description: 'Created via store',
           status: TaskStatus.TODO,

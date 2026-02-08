@@ -1,7 +1,7 @@
-import { TaskData, UserData } from './interfaces';
-import { TaskStatus, TaskPriority } from '@lib/features/task/models/task.model';
+import { TaskData, UserData, Task } from './interfaces';
+import { TaskStatus, TaskPriority } from '@lib/features/task-classic/models/task.model';
 
-export const mockTasks: TaskData[] = [
+export const mockTasks: Task[] = [
   {
     id: '1',
     title: 'Implement authentication',

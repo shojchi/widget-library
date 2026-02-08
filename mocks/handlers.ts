@@ -43,13 +43,10 @@ const userDataToUser = (userData: UserData): User => ({
 
 /**
  * Helper: Convert TaskData to Task
- * Transforms assignedTo from string ID to User object (with empty tasks)
+ * Since assignedTo is now a simple string ID in both, this just spreads the data
  */
-const taskDataToTask = (taskData: TaskData): Task => ({
-  ...taskData,
-  assignedTo: taskData.assignedTo
-    ? userDataToUser(mockUsers.find(u => u.id === taskData.assignedTo)!)
-    : undefined
+const taskDataToTask = (taskData: Task): Task => ({
+  ...taskData
 });
 
 export const handlers = [

@@ -21,5 +21,8 @@ export * from './lib/core/store/notifications';
 export * from './lib/core/store/auth';
 export * from './lib/core/store/loading';
 
+// NgRx Store - Feature Stores (Widget-Specific State)
+export { provideTaskClassicStore } from './lib/features/task-classic/task-classic.provider';
+
 // Core Components
 export * from './lib/widget-library';
