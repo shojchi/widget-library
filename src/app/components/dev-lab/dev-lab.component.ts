@@ -243,7 +243,7 @@ export class DevLabComponent {
     this.store.dispatch(
       TaskClassicActions.createTask({
         input: {
-          title: 'Task from NgRx',
+          title: 'Task from NgRx ' + Date.now(),
           description: 'Created via store',
           status: TaskStatus.TODO,
           priority: TaskPriority.HIGH
