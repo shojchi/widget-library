@@ -1,5 +1,4 @@
 export type {
-  TaskData,
   Task,
   TaskStatus,
   TaskPriority

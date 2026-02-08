@@ -1,4 +1,4 @@
-import { TaskData, UserData, Task } from './interfaces';
+import { Task, UserData } from './interfaces';
 import { TaskStatus, TaskPriority } from '@lib/features/task-classic/models/task.model';
 
 export const mockTasks: Task[] = [
@@ -15,6 +15,7 @@ export const mockTasks: Task[] = [
   {
     id: '2',
     title: 'Log time tracking',
+    description: null,
     status: TaskStatus.DONE,
     priority: TaskPriority.MEDIUM,
     createdAt: '2024-02-10T10:00:00Z',
@@ -28,7 +29,8 @@ export const mockTasks: Task[] = [
     status: TaskStatus.TODO,
     priority: TaskPriority.LOW,
     createdAt: '2024-03-10T10:00:00Z',
-    updatedAt: '2024-03-12T12:00:00Z'
+    updatedAt: '2024-03-12T12:00:00Z',
+    assignedTo: null
   },
   {
     id: '4',
@@ -47,7 +49,8 @@ export const mockTasks: Task[] = [
     status: TaskStatus.IN_PROGRESS,
     priority: TaskPriority.HIGH,
     createdAt: '2024-05-10T10:00:00Z',
-    updatedAt: '2024-05-12T12:00:00Z'
+    updatedAt: '2024-05-12T12:00:00Z',
+    assignedTo: null
   }
 ];
 

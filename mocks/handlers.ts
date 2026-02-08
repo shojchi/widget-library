@@ -1,10 +1,10 @@
 import { graphql, HttpResponse } from 'msw';
 import { mockTasks, mockUsers } from './mock-data';
-import { Task, TaskData, User, UserData } from './interfaces';
+import { Task, User, UserData } from './interfaces';
 
 interface TaskVariables {
   id?: string;
-  input?: Partial<TaskData>; // Input should have assignedTo as string, not User
+  input?: Partial<Task>; // Input should have assignedTo as string, not User
 }
 
 interface TasksResponse {
@@ -41,31 +41,21 @@ const userDataToUser = (userData: UserData): User => ({
   tasks: [] // Empty array prevents circular Task → User → Task lookups
 });
 
-/**
- * Helper: Convert TaskData to Task
- * Since assignedTo is now a simple string ID in both, this just spreads the data
- */
-const taskDataToTask = (taskData: Task): Task => ({
-  ...taskData
-});
-
 export const handlers = [
   graphql.query<TasksResponse>('tasks', () => {
-    const transformedTasks: Task[] = mockTasks.map(taskDataToTask);
 
     return HttpResponse.json({
-      data: { tasks: transformedTasks }
+      data: { tasks: mockTasks }
     });
   }),
 
   graphql.query<UsersResponse>('users', () => {
     const usersWithTasks: User[] = mockUsers.map(user => {
       const assignedTasksData = mockTasks.filter(t => t.assignedTo === user.id);
-      const tasks: Task[] = assignedTasksData.map(taskDataToTask);
 
       return {
         ...user,
-        tasks
+        tasks: assignedTasksData
       };
     });
 
@@ -76,9 +66,9 @@ export const handlers = [
 
   graphql.query<TaskResponse, TaskVariables>('task', ({ variables }) => {
     const { id } = variables;
-    const taskData: TaskData | undefined = mockTasks.find(t => t.id === id);
+    const taskData: Task | undefined = mockTasks.find(t => t.id === id);
 
-    const task: Task | null = taskData ? taskDataToTask(taskData) : null;
+    const task: Task | null = taskData ? taskData : null;
 
     return HttpResponse.json({
       data: { task }
@@ -90,12 +80,11 @@ export const handlers = [
 
     const userData: UserData | undefined = mockUsers.find(u => u.id === id);
     const assignedTasksData = mockTasks.filter(t => t.assignedTo === id);
-    const assignedTasks: Task[] = assignedTasksData.map(taskDataToTask);
 
     const user: User | null = userData
       ? {
           ...userData,
-          tasks: assignedTasks
+          tasks: assignedTasksData
         }
       : null;
 
@@ -109,16 +98,16 @@ export const handlers = [
 
     const validatedInput = validateRequiredFields(input, ['title', 'status', 'priority']);
 
-    const newTaskData: TaskData = {
+    const newTask: Task = {
       id: String(mockTasks.length + 1),
       ...validatedInput,
       createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
+      assignedTo: null,
+      description: null
     };
 
-    mockTasks.push(newTaskData);
-
-    const newTask: Task = taskDataToTask(newTaskData);
+    mockTasks.push(newTask);
 
     return HttpResponse.json({
       data: { createTask: newTask }
