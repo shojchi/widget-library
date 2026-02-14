@@ -22,7 +22,8 @@ import {
   notificationsReducer,
   authReducer,
   AuthEffects,
-  loadingReducer
+  loadingReducer,
+  ThemeEffects
 } from 'widget-library';
 import { ViewportService } from './services/viewport.service';
 import { ThemeService } from './services/theme.service';
@@ -51,7 +52,7 @@ export const appConfig: ApplicationConfig = {
       auth: authReducer,
       loading: loadingReducer
     }),
-    provideEffects([AuthEffects]),
+    provideEffects([AuthEffects, ThemeEffects]),
     provideAppInitializer(() => {
       const viewportService = inject(ViewportService);
       const themeService = inject(ThemeService);
