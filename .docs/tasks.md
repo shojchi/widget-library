@@ -120,10 +120,10 @@
   - [✅] 5.1 Widget 1 - Classic NgRx with Feature Store
     ✅ Create `projects/widget-library/src/lib/features/task-classic/`
     ✅ **Store setup:**
-      ✅ task.actions.ts with createActionGroup (loadTasks, createTask, updateTask, deleteTask, setFilter)
-      ✅ task.reducer.ts with createReducer (handle all CRUD operations immutably)
-      ✅ task.effects.ts with createEffect (integrate with Apollo GraphQL)
-      ✅ task.selectors.ts with createFeatureSelector and memoized selectors
+    ✅ task.actions.ts with createActionGroup (loadTasks, createTask, updateTask, deleteTask, setFilter)
+    ✅ task.reducer.ts with createReducer (handle all CRUD operations immutably)
+    ✅ task.effects.ts with createEffect (integrate with Apollo GraphQL)
+    ✅ task.selectors.ts with createFeatureSelector and memoized selectors
     - **Feature state:**
       ✅ Use `provideState()` for lazy-loaded feature state
       ✅ State: tasks[], loading, error, filter
@@ -135,8 +135,8 @@
       ✅ UI: task list, create form, filter buttons, loading spinner
     - **Test:**
       ✅ Open Redux DevTools and verify all actions appear
-      - Try time-travel debugging (step backward/forward)
-      - Verify memoized selectors don't recompute unnecessarily
+      ✅ Try time-travel debugging (step backward/forward)
+      ✅ Verify memoized selectors don't recompute unnecessarily
     - _Learn: Feature stores, lazy loading, action/reducer/effect pattern, DevTools power_
     - _Requirements: 3.1, 3.2, 3.3, 3.4, 4.1, 4.2, 4.3, 4.4_
   - [ ]\* 5.1.1 Write property test for NgRx action dispatch consistency
