@@ -78,14 +78,14 @@ AI assistants working on this project should:
 - ✅ **Review and suggest** rather than rewrite
 - ✅ **Build understanding** layer by layer
 
-## 🛠️ Tech Stack Context
+## 🛠️ Client Side Tech Stack Context
 
 - **Framework**: Angular v21 (standalone, signals, modern patterns)
 - **State**: NgRx (Store, Effects, Entity, ComponentStore)
 - **Language**: TypeScript 5.9+
-- **API**: GraphQL
+- **API**: [metacom](https://github.com/metarhia/metacom)
 - **Package Manager**: pnpm 10.25.0
-- **Project Type**: SDK Library
+- **Project Type**: Web Clieent Application
 
 ## 📚 For AI Assistants
 
@@ -99,12 +99,12 @@ AI assistants working on this project should:
 **Don't load all context files upfront!** Only read `.docs/` files when relevant.
 
 ### Key Learning Areas
+
 - Modern Angular v21 patterns (standalone components, signals, inject())
 - NgRx modern APIs (Entity adapters, ComponentStore, functional effects)
-- SDK/Library design principles
-- GraphQL + NgRx integration patterns
 
 ### Anti-Patterns to Watch For
+
 - ❌ NgModules for new code
 - ❌ Old control flow syntax (*ngIf, *ngFor)
 - ❌ String-based NgRx actions
@@ -116,12 +116,14 @@ AI assistants working on this project should:
 ## 🔄 Keeping Rules in Sync
 
 ### Agent Files (Consolidated)
+
 - **Location**: `.ai/agents/` (single source of truth)
 - **Root files**: None - all files in `.ai/agents/`
 - **To edit**: Edit files directly in `.ai/agents/`
 - **If tools require root files**: Run `.ai/sync-agents.sh` to copy files to root, or configure tools to read from `.ai/agents/`
 
 ### Master Rules
+
 The master rules are in `.docs/rules.md`.
 
 When updating rules:
@@ -146,12 +148,14 @@ If a tool requires files in root (most don't), you can:
 ```
 
 ### Adding New Rules
+
 1. Edit `.docs/rules.md` (master rules)
 2. Update relevant agent files in `.ai/agents/`
 3. Run sync script if needed (for non-symlink systems)
 4. Commit all rule files together
 
 ### Testing Rules
+
 Start a conversation with your AI assistant and verify:
 - It asks clarifying questions before solving
 - It explains concepts and trade-offs
@@ -161,6 +165,7 @@ Start a conversation with your AI assistant and verify:
 ## 📖 Documentation
 
 ### Full Rules Documentation
+
 See `.docs/rules.md` for:
 - Complete teaching philosophy
 - Detailed tech stack guidance
@@ -169,6 +174,7 @@ See `.docs/rules.md` for:
 - Code examples and anti-patterns
 
 ### Quick Reference
+
 See `.cursorrules` for:
 - Condensed guidelines
 - Code style examples
@@ -176,6 +182,7 @@ See `.cursorrules` for:
 - Quick anti-pattern reference
 
 ### Context Index
+
 See `.ai/CONTEXT_INDEX.md` for:
 - Complete list of context files
 - When to load each file (on-demand strategy)
