@@ -74,7 +74,7 @@
     "@graphql-codegen/typed-document-node": "^6.1.7",
     "@graphql-codegen/typescript": "^5.0.9",
     "@graphql-codegen/typescript-operations": "^5.0.9",
-    "@tailwindcss/postcss": "^4.2.1",
+    "@tailwindcss/postcss": "^4.2.2",
     "angular-eslint": "21.3.0",
     "eslint": "^10.0.3",
     "eslint-config-prettier": "^10.1.8",
