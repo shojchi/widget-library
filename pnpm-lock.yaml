@@ -59,7 +59,7 @@ importers:
         version: 21.3.0(@angular/cli@21.2.2(@types/node@25.5.0)(chokidar@5.0.0))(chokidar@5.0.0)(eslint@10.0.3(jiti@2.6.1))(typescript@5.9.3)
       '@angular/build':
         specifier: ^21.2.2
-        version: 21.2.2(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(@angular/compiler@21.2.4)(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2))(@angular/platform-browser@21.2.4(@angular/common@21.2.4(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2)))(@types/node@25.5.0)(chokidar@5.0.0)(jiti@2.6.1)(less@4.6.3)(lightningcss@1.31.1)(ng-packagr@21.2.0(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(tailwindcss@4.2.1)(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.8)(tailwindcss@4.2.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.1.0(@types/node@25.5.0)(jsdom@28.1.0)(msw@2.12.10(@types/node@25.5.0)(typescript@5.9.3))(vite@7.3.1(@types/node@25.5.0)(jiti@2.6.1)(less@4.6.3)(lightningcss@1.31.1)(sass@1.97.3)(terser@5.44.0)(yaml@2.8.2)))(yaml@2.8.2)
+        version: 21.2.2(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(@angular/compiler@21.2.4)(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2))(@angular/platform-browser@21.2.4(@angular/common@21.2.4(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2)))(@types/node@25.5.0)(chokidar@5.0.0)(jiti@2.6.1)(less@4.6.3)(lightningcss@1.31.1)(ng-packagr@21.2.0(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(tailwindcss@4.2.2)(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.8)(tailwindcss@4.2.2)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.1.0(@types/node@25.5.0)(jsdom@28.1.0)(msw@2.12.10(@types/node@25.5.0)(typescript@5.9.3))(vite@7.3.1(@types/node@25.5.0)(jiti@2.6.1)(less@4.6.3)(lightningcss@1.31.1)(sass@1.97.3)(terser@5.44.0)(yaml@2.8.2)))(yaml@2.8.2)
       '@angular/cli':
         specifier: ^21.2.2
         version: 21.2.2(@types/node@25.5.0)(chokidar@5.0.0)
@@ -113,7 +113,7 @@ importers:
         version: 2.12.10(@types/node@25.5.0)(typescript@5.9.3)
       ng-packagr:
         specifier: ^21.2.0
-        version: 21.2.0(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(tailwindcss@4.2.1)(tslib@2.8.1)(typescript@5.9.3)
+        version: 21.2.0(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(tailwindcss@4.2.2)(tslib@2.8.1)(typescript@5.9.3)
       postcss:
         specifier: ^8.5.8
         version: 8.5.8
@@ -121,8 +121,8 @@ importers:
         specifier: ^3.8.1
         version: 3.8.1
       tailwindcss:
-        specifier: ^4.2.1
-        version: 4.2.1
+        specifier: ^4.2.2
+        version: 4.2.2
       typescript:
         specifier: ~5.9.3
         version: 5.9.3
@@ -4133,6 +4133,9 @@ packages:
   tailwindcss@4.2.1:
     resolution: {integrity: sha512-/tBrSQ36vCleJkAOsy9kbNTgaxvGbyOamC30PRePTQe/o1MFwEKHQk4Cn7BNGaPtjp+PuUrByJehM1hgxfq4sw==}
 
+  tailwindcss@4.2.2:
+    resolution: {integrity: sha512-KWBIxs1Xb6NoLdMVqhbhgwZf2PGBpPEiwOqgI4pFIYbNTfBXiKYyWoTsXgBQ9WFg/OlhnvHaY+AEpW7wSmFo2Q==}
+
   tapable@2.3.0:
     resolution: {integrity: sha512-g9ljZiwki/LfxmQADO3dEY1CbpmXT5Hm2fJ+QaGKwSXUylMybePR7/67YW7jOrrvjEgL1Fmz5kzyAjWVWLlucg==}
     engines: {node: '>=6'}
@@ -4696,7 +4699,7 @@ snapshots:
       eslint: 10.0.3(jiti@2.6.1)
       typescript: 5.9.3
 
-  '@angular/build@21.2.2(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(@angular/compiler@21.2.4)(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2))(@angular/platform-browser@21.2.4(@angular/common@21.2.4(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2)))(@types/node@25.5.0)(chokidar@5.0.0)(jiti@2.6.1)(less@4.6.3)(lightningcss@1.31.1)(ng-packagr@21.2.0(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(tailwindcss@4.2.1)(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.8)(tailwindcss@4.2.1)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.1.0(@types/node@25.5.0)(jsdom@28.1.0)(msw@2.12.10(@types/node@25.5.0)(typescript@5.9.3))(vite@7.3.1(@types/node@25.5.0)(jiti@2.6.1)(less@4.6.3)(lightningcss@1.31.1)(sass@1.97.3)(terser@5.44.0)(yaml@2.8.2)))(yaml@2.8.2)':
+  '@angular/build@21.2.2(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(@angular/compiler@21.2.4)(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2))(@angular/platform-browser@21.2.4(@angular/common@21.2.4(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2)))(@types/node@25.5.0)(chokidar@5.0.0)(jiti@2.6.1)(less@4.6.3)(lightningcss@1.31.1)(ng-packagr@21.2.0(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(tailwindcss@4.2.2)(tslib@2.8.1)(typescript@5.9.3))(postcss@8.5.8)(tailwindcss@4.2.2)(terser@5.44.0)(tslib@2.8.1)(typescript@5.9.3)(vitest@4.1.0(@types/node@25.5.0)(jsdom@28.1.0)(msw@2.12.10(@types/node@25.5.0)(typescript@5.9.3))(vite@7.3.1(@types/node@25.5.0)(jiti@2.6.1)(less@4.6.3)(lightningcss@1.31.1)(sass@1.97.3)(terser@5.44.0)(yaml@2.8.2)))(yaml@2.8.2)':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2102.2(chokidar@5.0.0)
@@ -4734,9 +4737,9 @@ snapshots:
       '@angular/platform-browser': 21.2.4(@angular/common@21.2.4(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@21.2.4(@angular/compiler@21.2.4)(rxjs@7.8.2))
       less: 4.6.3
       lmdb: 3.5.1
-      ng-packagr: 21.2.0(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(tailwindcss@4.2.1)(tslib@2.8.1)(typescript@5.9.3)
+      ng-packagr: 21.2.0(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(tailwindcss@4.2.2)(tslib@2.8.1)(typescript@5.9.3)
       postcss: 8.5.8
-      tailwindcss: 4.2.1
+      tailwindcss: 4.2.2
       vitest: 4.1.0(@types/node@25.5.0)(jsdom@28.1.0)(msw@2.12.10(@types/node@25.5.0)(typescript@5.9.3))(vite@7.3.1(@types/node@25.5.0)(jiti@2.6.1)(less@4.6.3)(lightningcss@1.31.1)(sass@1.97.3)(terser@5.44.0)(yaml@2.8.2))
     transitivePeerDependencies:
       - '@types/node'
@@ -8010,7 +8013,7 @@ snapshots:
 
   negotiator@1.0.0: {}
 
-  ng-packagr@21.2.0(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(tailwindcss@4.2.1)(tslib@2.8.1)(typescript@5.9.3):
+  ng-packagr@21.2.0(@angular/compiler-cli@21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3))(tailwindcss@4.2.2)(tslib@2.8.1)(typescript@5.9.3):
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular/compiler-cli': 21.2.4(@angular/compiler@21.2.4)(typescript@5.9.3)
@@ -8038,7 +8041,7 @@ snapshots:
       typescript: 5.9.3
     optionalDependencies:
       rollup: 4.59.0
-      tailwindcss: 4.2.1
+      tailwindcss: 4.2.2
 
   no-case@3.0.4:
     dependencies:
@@ -8713,6 +8716,8 @@ snapshots:
   tagged-tag@1.0.0: {}
 
   tailwindcss@4.2.1: {}
+
+  tailwindcss@4.2.2: {}
 
   tapable@2.3.0: {}
 
